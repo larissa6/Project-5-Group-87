@@ -33,38 +33,48 @@ public class Person
     }
     
     /**
-     * 
-     * @param answers
+     * Gets a person's hobby.
+     * @return The hobby.
      */
-    public void setAnswers(List<String> answers)
-    {
-        this.answers = answers;
-    }
-    
     public String getHobby()
     {
         return hobby;
     }
     
-    public void setHobby(String hobby)
+    /**
+     * Gets a person's major.
+     * @return The major.
+     */
+    public String getMajor()
     {
-        this.hobby = hobby;
+        return major;
     }
     
-    public void setmajor(String major)
+    /**
+     * Gets a person's state.
+     * @return The state.
+     */
+    public String getState()
     {
-        this.major = major;
+        return state;
+    }    
+    
+    /**
+     * Gets a person's date.
+     * @return The date.
+     */
+    public String getDate()
+    {
+        return date;
     }
     
-    public void setstate(String state)
-    {
-        this.state = state;
-    }
-    
-    public void setdate(String date)
+    /**
+     * Sets a person's date.
+     * @param date The date to be set.
+     */
+    public void setDate(String date)
     {
         this.date = date;
     }
-    
-    
+
 }
