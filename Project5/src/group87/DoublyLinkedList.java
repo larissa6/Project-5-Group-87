@@ -110,6 +110,44 @@ public class DoublyLinkedList<E>
     public E get(int index) {
         return getNodeAtIndex(index).getData();
     }
+    
+    /**
+     * Adds a node at a specific index.
+     * @param entry The new data being added.
+     * @param index The specific index.
+     */
+    public void addNodeAtIndex(E entry, int index)
+    {
+        if (entry == null) {
+            throw new IllegalArgumentException();
+        }
+        Node<E> newNode = new Node<E>(entry);
+        if (index == 0)
+        {
+            Node<E> nextNode = first;
+            newNode.setNext(nextNode);
+            nextNode.setPrevious(newNode);
+            first = newNode;
+        }
+        else if (index == size)
+        {
+            Node<E> previousNode = last;
+            newNode.setPrevious(previousNode);
+            previousNode.setNext(newNode);
+            last = newNode;
+        }
+        else
+        {
+            Node<E> previousNode = getNodeAtIndex(index - 1);
+            Node<E> nextNode = getNodeAtIndex(index);
+            previousNode.setNext(newNode);
+            newNode.setPrevious(previousNode);
+            nextNode.setPrevious(newNode);
+            newNode.setNext(nextNode);
+        }
+        size++;
+    }
+    
 
     //I didn't add a remove function because I don't think we'll be removing
     //anything but I can add one pretty easily if we need one
