@@ -17,7 +17,7 @@ public class Person
      * Creates a person with survey results.
      * @param answers The survey results.
      */
-    public Person(DoublyLinkedList<String> answers)
+    public Person(String hobby, String major, String state, String date, DoublyLinkedList<String> answers)
     {
         this.answers = answers;
     }
