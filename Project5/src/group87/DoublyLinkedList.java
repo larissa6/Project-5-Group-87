@@ -62,11 +62,14 @@ public class DoublyLinkedList<E>
      */
     public boolean contains(E object) {
         Node<E> current = first;
-        for (int i = 0; i < size(); i++) {
+        if (current.getData().equals(object)) {
+            return true;
+        }
+        for (int i = 0; i < size() - 1; i++) {
+            current = current.getNext();
             if (current.getData().equals(object)) {
                 return true;
             }
-            current = current.getNext();
         }
         return false;
     }
@@ -80,7 +83,7 @@ public class DoublyLinkedList<E>
         if (index < 0 || size() <= index) {
             throw new IndexOutOfBoundsException();
         }
-        Node<E> current = first.getNext();
+        Node<E> current = first;
         for (int i = 0; i < index; i++) {
             current = current.getNext();
         }
@@ -106,8 +109,15 @@ public class DoublyLinkedList<E>
         if (entry == null) {
             throw new IllegalArgumentException();
         }
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
         Node<E> newNode = new Node<E>(entry);
-        if (index == 0)
+        if (size == 0) {
+            first = newNode;
+            last = newNode;
+        }
+        else if (index == 0)
         {
             Node<E> nextNode = first;
             newNode.setNext(nextNode);

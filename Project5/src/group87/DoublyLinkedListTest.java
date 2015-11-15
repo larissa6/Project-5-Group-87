@@ -76,7 +76,7 @@ public class DoublyLinkedListTest
         list.add("Larissa");
         list.add("Tara");
 
-        assertEquals("Larissa", list.get(2));
+        assertEquals("Tara", list.get(2));
     }
 
     /**
@@ -93,5 +93,55 @@ public class DoublyLinkedListTest
         }
         assertNotNull(thrown);
         assertTrue(thrown instanceof IndexOutOfBoundsException);
+    }
+
+    /**
+     * tests the addNodeAtIndex method for an index that is out of bounds
+     */
+    public void testAddNodeAtIndexOut() {
+        Exception thrown = null;
+        try {
+            list.addNodeAtIndex("hello", -3);
+        }
+        catch (Exception e) {
+            thrown = e;
+        }
+        assertNotNull(thrown);
+        assertTrue(thrown instanceof IndexOutOfBoundsException);
+
+        Exception thrown2 = null;
+        try {
+            list.addNodeAtIndex("hello", 5);
+        }
+        catch (Exception e) {
+            thrown2 = e;
+        }
+        assertNotNull(thrown2);
+        assertTrue(thrown2 instanceof IndexOutOfBoundsException);
+    }
+
+    /**
+     * tests the addNodeAtIndex method for each end of the list
+     */
+    public void testAddNodeAtIndexEnds() {
+        list.add("hello");
+        list.add("world");
+
+        list.addNodeAtIndex("Simone", 0);
+        list.addNodeAtIndex("Larissa", 3);
+        assertEquals("Simone", list.get(0));
+        assertEquals("Larissa", list.get(3));
+    }
+
+    /**
+     * tests the addNodeAtIndex method for the middle of the list
+     */
+    public void testAddNodeAtIndexMiddle() {
+        list.add("Simone");
+        list.add("Larissa");
+        list.add("Tara");
+        list.addNodeAtIndex("hello", 2);
+        assertEquals("hello", list.get(2));
+        assertEquals("Tara", list.get(3));
     }
 }
