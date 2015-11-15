@@ -5,7 +5,8 @@ package group87;
 /**
  *  A doubly linked list
  *
- *  @author Simone Stewart (simone5)
+ *  @author Simone Stewart (simone5), Larissa Schneider (larissa6),
+ * Tara Amruthur (taraa2)
  *  @version 2015.11.15
  *  @param <E> the data type for the list
  */
