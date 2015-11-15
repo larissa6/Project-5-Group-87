@@ -1,5 +1,4 @@
 package group87;
-import java.util.List;
 
 /**
  * An average person with survey results
@@ -8,7 +7,7 @@ import java.util.List;
  */
 public class Person 
 {
-    private List<String> answers;
+    private DoublyLinkedList<String> answers;
     private String hobby;
     private String major;
     private String state;
@@ -18,7 +17,7 @@ public class Person
      * Creates a person with survey results.
      * @param answers The survey results.
      */
-    public Person(List<String> answers)
+    public Person(DoublyLinkedList<String> answers)
     {
         this.answers = answers;
     }
@@ -27,7 +26,7 @@ public class Person
      * Gets a person's survey results.
      * @return The results.
      */
-    public List<String> getAnswers()
+    public DoublyLinkedList<String> getAnswers()
     {
         return answers;
     }

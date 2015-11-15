@@ -72,22 +72,6 @@ public class DoublyLinkedList<E>
     }
 
     /**
-     * Adds an entry to the end of the list
-     * @param entry the new data being added to the list
-     */
-    public void add(E entry) {
-        if (entry == null) {
-            throw new IllegalArgumentException();
-        }
-        //TODO I think there are some issues here
-        Node<E> newNode = new Node<E>(entry);
-        newNode.setPrevious(last);
-        newNode.setNext(new DoublyLinkedList.Node<E>(null));
-        last.setNext(newNode);
-        size++;
-    }
-
-    /**
      * Gets a node at a specified position in the list
      * @param index the position in the list to get a node
      * @return the node at that position
@@ -112,8 +96,68 @@ public class DoublyLinkedList<E>
         return getNodeAtIndex(index).getData();
     }
 
-    //I didn't add a remove function because I don't think we'll be removing
-    //anything but I can add one pretty easily if we need one
+    /**
+     * Adds a node at a specific index.
+     * @param entry The new data being added.
+     * @param index The specific index.
+     */
+    public void addNodeAtIndex(E entry, int index)
+    {
+        if (entry == null) {
+            throw new IllegalArgumentException();
+        }
+        Node<E> newNode = new Node<E>(entry);
+        if (index == 0)
+        {
+            Node<E> nextNode = first;
+            newNode.setNext(nextNode);
+            nextNode.setPrevious(newNode);
+            first = newNode;
+        }
+        else if (index == size)
+        {
+            Node<E> previousNode = last;
+            newNode.setPrevious(previousNode);
+            previousNode.setNext(newNode);
+            last = newNode;
+        }
+        else
+        {
+            Node<E> previousNode = getNodeAtIndex(index - 1);
+            Node<E> nextNode = getNodeAtIndex(index);
+            previousNode.setNext(newNode);
+            newNode.setPrevious(previousNode);
+            nextNode.setPrevious(newNode);
+            newNode.setNext(nextNode);
+        }
+        size++;
+    }
+
+    /**
+     * Adds an entry to the end of the list
+     * @param entry the new data being added to the list
+     */
+    public void add(E entry) {
+        addNodeAtIndex(entry, size);
+    }
+
+    /**
+     * removes an entry at a given index
+     * @param index the position in the list the entry to remove is located
+     * @return the data at the given position
+     */
+    public E remove(int index) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
+        Node<E> current = first;
+        for (int i = 0; i < index; i++) {
+            current = current.getNext();
+        }
+        current.getPrevious().setNext(current.getNext());
+        current.getNext().setPrevious(current.getPrevious());
+        return current.getData();
+    }
 
     /**
      * // -------------------------------------------------------------------------
