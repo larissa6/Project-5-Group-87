@@ -6,7 +6,7 @@ package group87;
  *  A doubly linked list
  *
  *  @author Simone Stewart (simone5), Larissa Schneider (larissa6),
- * Tara Amruthur (taraa2)
+ *  Tara Amruthur (taraa2)
  *  @version 2015.11.15
  *  @param <E> the data type for the list
  */
@@ -58,7 +58,7 @@ public class DoublyLinkedList<E>
     /**
      * Checks the list for an object
      * @param object the entry being searched for
-     * @return true if it is found in the lsit
+     * @return true if it is found in the list
      */
     public boolean contains(E object) {
         Node<E> current = first;

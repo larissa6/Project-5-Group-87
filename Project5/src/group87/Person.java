@@ -5,23 +5,24 @@ package group87;
  * @author Larissa Schneider (larissa6)
  * @version 2015.11.13
  */
-public class Person 
+public class Person
 {
     private DoublyLinkedList<String> answers;
     private String hobby;
     private String major;
     private String state;
     private String date;
-    
+
     /**
      * Creates a person with survey results.
      * @param answers The survey results.
      */
-    public Person(String hobby, String major, String state, String date, DoublyLinkedList<String> answers)
+    public Person(String hobby, String major, String state, String date,
+        DoublyLinkedList<String> answers)
     {
         this.answers = answers;
     }
-    
+
     /**
      * Gets a person's survey results.
      * @return The results.
@@ -30,7 +31,7 @@ public class Person
     {
         return answers;
     }
-    
+
     /**
      * Gets a person's hobby.
      * @return The hobby.
@@ -39,7 +40,7 @@ public class Person
     {
         return hobby;
     }
-    
+
     /**
      * Gets a person's major.
      * @return The major.
@@ -48,7 +49,7 @@ public class Person
     {
         return major;
     }
-    
+
     /**
      * Gets a person's state.
      * @return The state.
@@ -56,8 +57,8 @@ public class Person
     public String getState()
     {
         return state;
-    }    
-    
+    }
+
     /**
      * Gets a person's date.
      * @return The date.
@@ -66,7 +67,7 @@ public class Person
     {
         return date;
     }
-    
+
     /**
      * Sets a person's date.
      * @param date The date to be set.
