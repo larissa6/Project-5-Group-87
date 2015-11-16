@@ -9,7 +9,7 @@ public class PeopleList
 {
     private int population;
     private DoublyLinkedList<Person> people;
-    public static DoublyLinkedList<Song> answerKey;
+    private DoublyLinkedList<Song> answerKey;
     
     /**
      * Creates a new People List.
@@ -18,6 +18,24 @@ public class PeopleList
     {
         population = 0;
         people = new DoublyLinkedList<Person>();
+    }
+    
+    /**
+     * Establishes the answer key.
+     * @param key The answer key to be set.
+     */
+    public void setAnswerKey(DoublyLinkedList<Song> key)
+    {
+        answerKey = key;
+    }
+    
+    /**
+     * Gets the answer key.
+     * @return The key.
+     */
+    public DoublyLinkedList<Song> getAnswerKey()
+    {
+        return answerKey;
     }
     
     /**
@@ -53,9 +71,9 @@ public class PeopleList
      * @param list The people whose results are being calculated.
      * @return The percentages.
      */
-    public double[] getPercentage(PeopleList list)
+    public double[] getPercentage()
     {
-        DoublyLinkedList<Person> myPeople = list.getPeople();
+        DoublyLinkedList<Person> myPeople = this.getPeople();
         double sum;
         double[] returnDouble = new double[answerKey.size()];
         for (int count = 0; count < answerKey.size(); count++)
@@ -78,17 +96,17 @@ public class PeopleList
      * @param list The list of people to be calculated.
      * @return An array of doubles with a -1 indicating a change in hobby.
      */
-    public double[] getPercentageByHobby(PeopleList list)
+    public double[] getPercentageByHobby()
     {
         PeopleList readList = new PeopleList();
         PeopleList artList = new PeopleList();
         PeopleList sportsList = new PeopleList();
         PeopleList musicList = new PeopleList();
-        double[] returnArray = new double[list.getPopulation() + 3];
+        double[] returnArray = new double[this.getPopulation() + 3];
         int returnIndex = 0;
-        for (int count = 0; count < list.getPopulation(); count++)
+        for (int count = 0; count < this.getPopulation(); count++)
         {
-            Person person = list.getPeople().get(count);
+            Person person = this.getPeople().get(count);
             String hobby = person.getHobby();
             if (hobby.equals("read"))
             {
@@ -107,7 +125,7 @@ public class PeopleList
                 musicList.addPerson(person);
             }
         }
-        double[] readArray = getPercentage(readList);
+        double[] readArray = this.getPercentage();
         for (int count = 0; count < readArray.length; count++)
         {
             returnArray[count] = readArray[count];
@@ -115,7 +133,7 @@ public class PeopleList
         returnIndex = returnIndex + readArray.length;
         returnArray[returnIndex] = -1;
         returnIndex++;
-        double[] artArray = getPercentage(artList);
+        double[] artArray = this.getPercentage();
         for (int count = 0; count < artArray.length; count++)
         {
             returnArray[count + returnIndex] = artArray[count];
@@ -124,7 +142,7 @@ public class PeopleList
         returnIndex = returnIndex + artArray.length;
         returnArray[returnIndex] = -1;
         returnIndex++;
-        double[] sportsArray = getPercentage(sportsList);
+        double[] sportsArray = this.getPercentage();
         for (int count = 0; count < sportsArray.length; count++)
         {
             returnArray[count + returnIndex] = sportsArray[count];
@@ -132,7 +150,7 @@ public class PeopleList
         returnIndex = returnIndex + sportsArray.length;
         returnArray[returnIndex] = -1;
         returnIndex++;
-        double[] musicArray = getPercentage(musicList);
+        double[] musicArray = this.getPercentage();
         for (int count = 0; count < musicArray.length; count++)
         {
             returnArray[count + returnIndex] = sportsArray[count];
@@ -153,8 +171,7 @@ public class PeopleList
         {
             while (count1 < answers.length)
             {
-                Song songToInsert = answerKey.get(count1);
-                //remove original.
+                Song songToInsert = answerKey.remove(count1);
                 String name = songToInsert.getSongTitle();
                 int count2 = count1 + 1;
                 while (count1 < count2)
@@ -193,8 +210,7 @@ public class PeopleList
         {
             while (count1 < answers.length)
             {
-                Song songToInsert = answerKey.get(count1);
-                //remove original.
+                Song songToInsert = answerKey.remove(count1);
                 String name = songToInsert.getGenre();
                 int count2 = count1 + 1;
                 while (count1 < count2)
@@ -233,8 +249,7 @@ public class PeopleList
         {
             while (count1 < answers.length)
             {
-                Song songToInsert = answerKey.get(count1);
-                //remove original.
+                Song songToInsert = answerKey.remove(count1);
                 String name = songToInsert.getYear();
                 int count2 = count1 + 1;
                 while (count1 < count2)
@@ -273,8 +288,7 @@ public class PeopleList
         {
             while (count1 < answers.length)
             {
-                Song songToInsert = answerKey.get(count1);
-                //remove original.
+                Song songToInsert = answerKey.remove(count1);
                 String name = songToInsert.getArtistName();
                 int count2 = count1 + 1;
                 while (count1 < count2)

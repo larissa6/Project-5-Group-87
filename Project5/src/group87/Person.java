@@ -15,12 +15,30 @@ public class Person
 
     /**
      * Creates a person with survey results.
+     * WILL BE DELETED LATER
      * @param answers The survey results.
      */
     public Person(String hobby, String major, String state, String date,
         DoublyLinkedList<String> answers)
     {
         this.answers = answers;
+        this.hobby = hobby;
+        this.major = major;
+        this.state = state;
+    }
+    
+    /**
+     * Creates a person with survey results.
+     * @param hobby The person's hobby.
+     * @param major The person's major.
+     * @param state The person's state.
+     * @param answers The person's results
+     */
+    public Person(String hobby, String major, String state, DoublyLinkedList<String> answers)
+    {
+        this.answers = answers;
+        this.hobby = hobby;
+        this.major = major;
     }
 
     /**
@@ -67,14 +85,4 @@ public class Person
     {
         return date;
     }
-
-    /**
-     * Sets a person's date.
-     * @param date The date to be set.
-     */
-    public void setDate(String date)
-    {
-        this.date = date;
-    }
-
 }
