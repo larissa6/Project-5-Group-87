@@ -144,4 +144,41 @@ public class DoublyLinkedListTest
         assertEquals("hello", list.get(2));
         assertEquals("Tara", list.get(3));
     }
+
+    /**
+     * tests the remove method for when the index is out of bounds
+     */
+    public void testRemoveOut() {
+        list.add("hello");
+        list.add("world");
+        Exception thrown = null;
+        try {
+            list.remove(-1);
+        }
+        catch (Exception e) {
+            thrown = e;
+        }
+        assertNotNull(thrown);
+        assertTrue(thrown instanceof IndexOutOfBoundsException);
+
+        Exception thrown2 = null;
+        try {
+            list.remove(2);
+        }
+        catch (Exception e) {
+            thrown2 = e;
+        }
+        assertNotNull(thrown2);
+        assertTrue(thrown2 instanceof IndexOutOfBoundsException);
+    }
+
+    /**
+     * tests the remove method for a valid remove index
+     */
+    public void testRemove() {
+        list.add("hello");
+        list.add("world");
+        assertEquals("world", list.remove(1));
+        assertEquals(1, list.size());
+    }
 }
