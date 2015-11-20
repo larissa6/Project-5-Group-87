@@ -164,8 +164,18 @@ public class DoublyLinkedList<E>
         for (int i = 0; i < index; i++) {
             current = current.getNext();
         }
-        current.getPrevious().setNext(current.getNext());
-        current.getNext().setPrevious(current.getPrevious());
+        if (index == 0) {
+            current.setNext(first);
+            first = current;
+        }
+        else if (index == size - 1) {
+            current.setPrevious(last);
+            last = current;
+        }
+        else {
+            current.getPrevious().setNext(current.getNext());
+            current.getNext().setPrevious(current.getPrevious());
+        }
         return current.getData();
     }
 

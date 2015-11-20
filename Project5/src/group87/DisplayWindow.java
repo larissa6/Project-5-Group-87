@@ -21,7 +21,7 @@ public class DisplayWindow
 {
     //Fields ------------------------------------------------------------------
     private Window window;
-    private static int LEGEND_WIDTH = 50;
+    private static int LEGEND_WIDTH = 150;
     private static int LEGEND_HEIGHT = 200;
     private int legendStartX;
     private int legendStartY;
@@ -72,6 +72,7 @@ public class DisplayWindow
 
         //creates the initial legend
         updateLegend("hobby", "song");
+        sampleGraph();
     }
 
     //Methods -----------------------------------------------------------------
@@ -164,26 +165,86 @@ public class DisplayWindow
      * @param song the aspect of the song the data is sorted by
      */
     public void updateLegend(String student, String song) {
-        Shape border = new Shape(legendStartX, legendStartY, LEGEND_WIDTH,
+        /*Shape border = new Shape(legendStartX, legendStartY, LEGEND_WIDTH,
             LEGEND_HEIGHT, Color.BLACK);
+        border.setBackgroundColor(Color.WHITE);
         window.addShape(border);
+        */
+
         TextShape legend = new TextShape(legendStartX + 5, legendStartY + 5,
             "Legend");
+        legend.setBackgroundColor(Color.WHITE);
         window.addShape(legend);
         //TODO add colored text shapes based on student to determine what they
         //should be
+        TextShape read = new TextShape(legendStartX + 5, legendStartY + 20,
+            "Read", Color.MAGENTA);
+        read.setBackgroundColor(Color.WHITE);
+        window.addShape(read);
+        TextShape art = new TextShape(legendStartX + 5, legendStartY + 35,
+            "Art", Color.CYAN);
+        art.setBackgroundColor(Color.WHITE);
+        window.addShape(art);
+        TextShape sports = new TextShape(legendStartX + 5, legendStartY + 50,
+            "Sports", Color.ORANGE);
+        sports.setBackgroundColor(Color.WHITE);
+        window.addShape(sports);
+        TextShape music = new TextShape(legendStartX + 5, legendStartY + 65,
+            "Music", Color.GREEN);
+        music.setBackgroundColor(Color.WHITE);
+        window.addShape(music);
 
-        TextShape songChar = new TextShape(legendStartX + 10, legendStartY + 50,
+        //Graph Legend
+        TextShape songChar = new TextShape(legendStartX + 10, legendStartY + 80,
             song, Color.BLACK);
+        songChar.setBackgroundColor(Color.WHITE);
         window.addShape(songChar);
-        TextShape heard = new TextShape(legendStartX + 5, legendStartY + 65,
-            "Heard");
+        TextShape heard = new TextShape(legendStartX - 25, legendStartY + 100,
+            "Heard", Color.BLACK);
+        heard.setBackgroundColor(Color.WHITE);
         window.addShape(heard);
-        Shape division = new Shape(legendStartX + 15, legendStartY + 65,
-            5, 20);
+        Shape division = new Shape(legendStartX + 20, legendStartY + 95,
+            5, 20, Color.BLACK);
         window.addShape(division);
-        TextShape likes = new TextShape(legendStartX + 30, legendStartY + 65,
-            "Likes");
+        TextShape likes = new TextShape(legendStartX + 33, legendStartY + 100,
+            "Likes", Color.BLACK);
+        likes.setBackgroundColor(Color.WHITE);
         window.addShape(likes);
+    }
+
+    /**
+     * Makes a sample graph for the window
+     */
+    public void sampleGraph() {
+        int x = 20;
+        int y = 20;
+        TextShape title = new TextShape(x, y, "All You Need is Love",
+            Color.BLACK);
+        title.setBackgroundColor(Color.WHITE);
+        TextShape artist = new TextShape(x, y + 15, "by The Beatles",
+            Color.BLACK);
+        artist.setBackgroundColor(Color.WHITE);
+        Shape pink = new Shape(x, y + 40, 100, 5, Color.MAGENTA);
+        Shape blue = new Shape(x, y + 45, 100, 5, Color.CYAN);
+        Shape orange = new Shape(x, y + 50, 100, 5, Color.ORANGE);
+        Shape green = new Shape(x, y + 55, 100, 5, Color.GREEN);
+        Shape divisor = new Shape(x + 50, y + 40, 5, 20, Color.BLACK);
+
+        window.addShape(title);
+        window.addShape(artist);
+        window.addShape(pink);
+        window.addShape(blue);
+        window.addShape(orange);
+        window.addShape(green);
+        window.addShape(divisor);
+        window.moveToFront(divisor);
+    }
+
+    /**
+     * creates a new window for testing
+     * @param args unused here
+     */
+    public static void main(String[] args) {
+        new DisplayWindow();
     }
 }
