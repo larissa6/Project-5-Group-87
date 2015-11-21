@@ -75,18 +75,28 @@ public class PeopleList
     {
         DoublyLinkedList<Person> myPeople = this.getPeople();
         double sum;
-        double[] returnDouble = new double[answerKey.size()];
-        for (int count = 0; count < answerKey.size(); count++)
+        double[] returnDouble = new double[this.getAnswerKey().size() * 2];
+        if (this.getPopulation() == 0)
         {
-            sum = 0;
-            for (int i = 0; i < population; i++)
+            for (int count = 0; count < this.getAnswerKey().size() * 2; count++)
             {
-                if (myPeople.get(i).getAnswers().get(count).equals("Yes"))
-                {
-                    sum++;
-                }
+                returnDouble[count] = -2;
             }
-            returnDouble[count] = sum / population * 100;
+        }
+        else
+        {
+            for (int count = 0; count < this.getAnswerKey().size() * 2; count++)
+            {
+                sum = 0;
+                for (int i = 0; i < this.getPopulation(); i++)
+                {
+                    if (myPeople.get(i).getAnswers().get(count).equals("Yes"))
+                    {
+                        sum++;
+                    }
+                }
+                returnDouble[count] = sum / this.getPopulation() * 100;
+            }
         }
         return returnDouble;
     }
@@ -99,10 +109,14 @@ public class PeopleList
     public double[] getPercentageByHobby()
     {
         PeopleList readList = new PeopleList();
+        readList.setAnswerKey(answerKey);
         PeopleList artList = new PeopleList();
+        artList.setAnswerKey(answerKey);
         PeopleList sportsList = new PeopleList();
+        sportsList.setAnswerKey(answerKey);
         PeopleList musicList = new PeopleList();
-        double[] returnArray = new double[this.getPopulation() + 3];
+        musicList.setAnswerKey(answerKey);
+        double[] returnArray = new double[this.getAnswerKey().size() * 8 + 3];
         int returnIndex = 0;
         for (int count = 0; count < this.getPopulation(); count++)
         {
@@ -125,7 +139,7 @@ public class PeopleList
                 musicList.addPerson(person);
             }
         }
-        double[] readArray = this.getPercentage();
+        double[] readArray = readList.getPercentage();
         for (int count = 0; count < readArray.length; count++)
         {
             returnArray[count] = readArray[count];
@@ -133,7 +147,7 @@ public class PeopleList
         returnIndex = returnIndex + readArray.length;
         returnArray[returnIndex] = -1;
         returnIndex++;
-        double[] artArray = this.getPercentage();
+        double[] artArray = artList.getPercentage();
         for (int count = 0; count < artArray.length; count++)
         {
             returnArray[count + returnIndex] = artArray[count];
@@ -142,7 +156,7 @@ public class PeopleList
         returnIndex = returnIndex + artArray.length;
         returnArray[returnIndex] = -1;
         returnIndex++;
-        double[] sportsArray = this.getPercentage();
+        double[] sportsArray = sportsList.getPercentage();
         for (int count = 0; count < sportsArray.length; count++)
         {
             returnArray[count + returnIndex] = sportsArray[count];
@@ -150,10 +164,10 @@ public class PeopleList
         returnIndex = returnIndex + sportsArray.length;
         returnArray[returnIndex] = -1;
         returnIndex++;
-        double[] musicArray = this.getPercentage();
+        double[] musicArray = musicList.getPercentage();
         for (int count = 0; count < musicArray.length; count++)
         {
-            returnArray[count + returnIndex] = sportsArray[count];
+            returnArray[count + returnIndex] = musicArray[count];
         }
         return returnArray;
     }
@@ -163,38 +177,10 @@ public class PeopleList
      * @param answers The answers to be sorted.
      * @return The sorted answers
      */
-    public double[] sortBySongTitle(double[] answers)
+    public double[] sortBySongTitle(double[] answers)   
     {
-        int count1 = 1;
-        int index = -1;
-        if (answers.length > 1)
-        {
-            while (count1 < answers.length)
-            {
-                Song songToInsert = answerKey.remove(count1);
-                String name = songToInsert.getSongTitle();
-                int count2 = count1 + 1;
-                while (count1 < count2)
-                {
-                    if (name.compareTo(answerKey.get(count2).getSongTitle()) < 0);
-                    {
-                        index = count2;
-                        count2 = answers.length;
-                    }
-                    count2++;
-                }
-                if (index > -1)
-                {
-                    answerKey.addNodeAtIndex(songToInsert, index);
-                    double answerToInsert = answers[count1];
-                    double displacedAnswer = answers[index];
-                    answers[index] = answerToInsert;
-                    answers[count1] = displacedAnswer;
-                }
-                count1++;
-            }
-        }
-        return answers;
+     // Sorting moved to DoublyLinkedList
+        return null;
     }
     
     /**
@@ -204,36 +190,8 @@ public class PeopleList
      */
     public double[] sortByGenre(double[] answers)
     {
-        int count1 = 1;
-        int index = -1;
-        if (answers.length > 1)
-        {
-            while (count1 < answers.length)
-            {
-                Song songToInsert = answerKey.remove(count1);
-                String name = songToInsert.getGenre();
-                int count2 = count1 + 1;
-                while (count1 < count2)
-                {
-                    if (name.compareTo(answerKey.get(count2).getGenre()) < 0);
-                    {
-                        index = count2;
-                        count2 = answers.length;
-                    }
-                    count2++;
-                }
-                if (index > -1)
-                {
-                    answerKey.addNodeAtIndex(songToInsert, index);
-                    double answerToInsert = answers[count1];
-                    double displacedAnswer = answers[index];
-                    answers[index] = answerToInsert;
-                    answers[count1] = displacedAnswer;
-                }
-                count1++;
-            }
-        }
-        return answers;
+        // Sorting moved to DoublyLinkedList
+        return null;
     }
     
     /**
@@ -243,37 +201,8 @@ public class PeopleList
      */
     public double[] sortByYear(double[] answers)
     {
-        int count1 = 1;
-        int index = -1;
-        if (answers.length > 1)
-        {
-            while (count1 < answers.length)
-            {
-                Song songToInsert = answerKey.remove(count1);
-                String name = songToInsert.getYear();
-                int count2 = count1 + 1;
-                while (count1 < count2)
-                {
-                    if (name.compareTo(answerKey.get(count2).getYear()) < 0);
-                    {
-                        index = count2;
-                        count2 = answers.length;
-                    }
-                    count2++;
-                }
-                if (index > -1)
-                {
-                    answerKey.addNodeAtIndex(songToInsert, index);
-                    double answerToInsert = answers[count1];
-                    double displacedAnswer = answers[index];
-                    answers[index] = answerToInsert;
-                    answers[count1] = displacedAnswer;
-                }
-                count1++;
-            }
-        }
-        return answers;
-    }
+        // Sorting moved to DoublyLinkedList
+        return null;}
     
     /**
      * Sorts the song key and the percentages by artist name.
@@ -282,35 +211,24 @@ public class PeopleList
      */
     public double[] sortByArtistName(double[] answers)
     {
-        int count1 = 1;
-        int index = -1;
-        if (answers.length > 1)
+        // Sorting moved to DoublyLinkedList
+        return null;   }
+    
+    public void intermediateOutput()
+    {
+        double[] results = this.getPercentageByHobby();
+        double[] resultsByTitle = answerKey.insertionSort("Song Title", results);
+        System.out.println("Hobby, sorted by song title: ");
+        for (int count = 0; count < resultsByTitle.length; count++)
         {
-            while (count1 < answers.length)
-            {
-                Song songToInsert = answerKey.remove(count1);
-                String name = songToInsert.getArtistName();
-                int count2 = count1 + 1;
-                while (count1 < count2)
-                {
-                    if (name.compareTo(answerKey.get(count2).getArtistName()) < 0);
-                    {
-                        index = count2;
-                        count2 = answers.length;
-                    }
-                    count2++;
-                }
-                if (index > -1)
-                {
-                    answerKey.addNodeAtIndex(songToInsert, index);
-                    double answerToInsert = answers[count1];
-                    double displacedAnswer = answers[index];
-                    answers[index] = answerToInsert;
-                    answers[count1] = displacedAnswer;
-                }
-                count1++;
-            }
+            System.out.println(resultsByTitle[count]);
         }
-        return answers;
+        double[] resultsByGenre = answerKey.insertionSort("Genre", results);
+        System.out.println("Hobby, sorted by genre ");
+        for (int count = 0; count < resultsByGenre.length; count++)
+        {
+            System.out.println(resultsByGenre[count]);
+        }
+        
     }
 }

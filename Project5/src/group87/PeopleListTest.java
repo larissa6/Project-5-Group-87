@@ -40,28 +40,35 @@ public class PeopleListTest extends TestCase
         {
             answers1.add("No");
         }
-        Person tempPerson1 = new Person("sports", "Math/CMDA",
-                "Northeast", answers1);
-        list.addPerson(tempPerson1);
         answers2 = new DoublyLinkedList<String>();
         for (int count = 0; count < 6; count++)
         {
             answers2.add("Yes");
         }
-        Person tempPerson2 = new Person("music", "Other",
-                "non-US", answers2);
-        list.addPerson(tempPerson2);
         answers3 = new DoublyLinkedList<String>();
         for (int count = 0; count < 6; count++)
         {
             answers3.add("No");
         }
-        Person tempPerson3 = new Person("art", "Computer Science",
-                "Southeast", answers3);
-        list.addPerson(tempPerson3);
-        people.add(tempPerson1);
-        people.add(tempPerson2);
-        people.add(tempPerson3);
+        Person tempPerson1 = new Person("sports", "Math/CMDA",
+                "Northeast", answers2);
+        list.addPerson(tempPerson1);
+        list.addPerson(new Person("sports", "Math/CMDA",
+                "Northeast", answers1));
+        list.addPerson(new Person("sports", "Math/CMDA",
+                "Northeast", answers3));
+        list.addPerson(new Person("music", "Other",
+                "non-US", answers3));
+        list.addPerson(new Person("music", "Other",
+                "non-US", answers2));
+        list.addPerson(new Person("art", "Computer Science",
+                "Southeast", answers2));
+        list.addPerson(new Person("read", "Computer Science",
+                "Southeast", answers1));
+        for (int count = 0; count < list.getPopulation(); count++)
+        {
+            people.add(list.getPeople().get(count));
+        }
     } 
     
     /**
@@ -98,7 +105,7 @@ public class PeopleListTest extends TestCase
      */
     public void testGetPopulation()
     {
-        assertEquals(3, list.getPopulation(), 0.01);
+        assertEquals(7, list.getPopulation(), 0.01);
     }
     
     /**
@@ -108,7 +115,7 @@ public class PeopleListTest extends TestCase
     {
         Person person = new Person("sports", "Computer Science", "Southeast", answers1);
         list.addPerson(person);
-        assertTrue(person.equals(list.getPeople().get(3)));
+        assertTrue(person.equals(list.getPeople().get(7)));
     }
     
     /**
@@ -117,7 +124,7 @@ public class PeopleListTest extends TestCase
     public void testGetPercentage()
     {
         double[] results = list.getPercentage();
-        assertEquals(66, results[0], 1);
+        assertEquals(71, results[0], 1);
     }
     
     /**
@@ -125,12 +132,10 @@ public class PeopleListTest extends TestCase
      */
     public void testGetPercentageByHobby()
     {
-        //TODO
         double[] results = list.getPercentageByHobby();
-        for (int count = 0; count < results.length; count++)
-        {
-            System.out.println(results[count]);
-        }
+        assertEquals(100, results[0], 0.01);
+        assertEquals(-1, results[6], 0.01);
+        assertEquals(100, results[7], 1);
     }
     
     /**
@@ -138,7 +143,8 @@ public class PeopleListTest extends TestCase
      */
     public void testSortBySongTitle()
     {
-        //TODO
+        double[] results = list.getPercentage();
+        assertNull(list.sortBySongTitle(results));
     }
     
     /**
@@ -146,7 +152,8 @@ public class PeopleListTest extends TestCase
      */
     public void testSortByGenre()
     {
-        //TODO
+        double[] results = list.getPercentage();
+        assertNull(list.sortByGenre(results));
     }
     
     /**
@@ -154,7 +161,8 @@ public class PeopleListTest extends TestCase
      */
     public void testSortByYear()
     {
-        //TODO
+        double[] results = list.getPercentage();
+        assertNull(list.sortByYear(results));
     }
     
     /**
@@ -162,8 +170,25 @@ public class PeopleListTest extends TestCase
      */
     public void testSortByArtistName()
     {
-        //TODO
+        double[] results = list.getPercentage();
+        assertNull(list.sortByArtistName(results));
     }
     
+    /**
+     * Tests the ouput for the intermediate solution.
+     */
+    public void testIntermediateOutput()
+    {
+        Exception exception = null;
+        try
+        {
+        list.intermediateOutput();
+        }
+        catch (Exception e)
+        {
+            exception = e;
+        }
+        assertNull(exception);
+    }
     
 }
