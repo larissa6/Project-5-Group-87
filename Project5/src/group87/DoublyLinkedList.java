@@ -1,5 +1,8 @@
 package group87;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 
 /**
  * // -------------------------------------------------------------------------
@@ -179,6 +182,19 @@ public class DoublyLinkedList<E>
             current.getPrevious().setNext(current.getNext());
             current.getNext().setPrevious(current.getPrevious());
         }
+
+        if (index == 0) {
+            current.setNext(first);
+            first = current;
+        }
+        else if (index == size - 1) {
+            current.setPrevious(last);
+            last = current;
+        }
+        else {
+            current.getPrevious().setNext(current.getNext());
+            current.getNext().setPrevious(current.getPrevious());
+        }
         return current.getData();
     }
 
@@ -247,6 +263,7 @@ public class DoublyLinkedList<E>
      * @param param The focus of the sort. 
      * @param answers The answer key to also be sorted.
      * Currently can be either "Song Title" or "Genre."
+     * @return the sorted answers.
      */
     public double[] insertionSort(String param, double[] answers)
     {
@@ -287,7 +304,7 @@ public class DoublyLinkedList<E>
     }
 
     /**
-     * // -------------------------------------------------------------------------
+     * 
     /**
      *  Nodes store data in the list and have pointers to the previous and
      *  next nodes
@@ -348,5 +365,57 @@ public class DoublyLinkedList<E>
         public E getData() {
             return data;
         }
+    }
+    @SuppressWarnings("unchecked")
+    public Iterator<Person> iterator() 
+    {
+        return new DLinkedListIterator();
+    }
+    
+    /**
+     * Class for the WaitingPartyIterator.
+     * @author Tara Amruthur (taraa2), Larissa Schneider (larissa6), Simone Stewart (simone5)
+     * @version 11.20.2015
+     *
+     */
+    @SuppressWarnings("rawtypes")
+    private class DLinkedListIterator implements Iterator
+    {
+
+        private int index;
+        
+        /**
+         * Constructor for class.
+         */
+        public DLinkedListIterator()
+        {
+            index = 0;
+        }
+        
+        /**
+         * Checks if there is an object after the current index.
+         */
+        @Override
+        public boolean hasNext() 
+        {
+            return index < size();
+        }
+
+        /**
+         * Returns next object.
+         */
+        @Override
+        public Object next() 
+        {
+            //Checks if there is something next.
+            //Throws an exception if not true.
+            if (!hasNext())
+            {
+                throw new NoSuchElementException();
+            }
+            index++;
+            return get(index - 1);
+        }
+        
     }
 }

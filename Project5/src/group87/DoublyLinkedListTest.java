@@ -1,5 +1,8 @@
 package group87;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 import student.TestCase;
 
 
@@ -17,12 +20,14 @@ extends TestCase
 {
     //Fields ------------------------------------------------------------------
     private DoublyLinkedList<String> list;
+    private Iterator<Person> iter;
 
     /**
      * sets up the tests before each run
      */
     public void setUp() {
         list = new DoublyLinkedList<String>();
+        iter = list.iterator();
     }
 
     //Methods -----------------------------------------------------------------
@@ -146,12 +151,45 @@ extends TestCase
     }
 
     /**
-     * Tests the insertionSort method.
+     * tests the remove method for when the index is out of bounds
      */
+    public void testRemoveOut() {
+        list.add("hello");
+        list.add("world");
+        Exception thrown = null;
+        try {
+            list.remove(-1);
+        }
+        catch (Exception e) {
+            thrown = e;
+        }
+        assertNotNull(thrown);
+        assertTrue(thrown instanceof IndexOutOfBoundsException);
+
+        Exception thrown2 = null;
+        try {
+            list.remove(2);
+        }
+        catch (Exception e) {
+            thrown2 = e;
+        }
+        assertNotNull(thrown2);
+        assertTrue(thrown2 instanceof IndexOutOfBoundsException);
+    }
+
+    /**
+     * tests the remove method for a valid remove index
+     */
+    public void testRemove() {
+        list.add("hello");
+        list.add("world");
+        assertEquals("world", list.remove(1));
+    }
+
+
     public void testInsertionSort()
     {
         DoublyLinkedList<Song> answerKey = new DoublyLinkedList<Song>();
-
         answerKey.add(new Song("Elvis Costello",
                 "Watching the Detectives", "punk",
                 "1977"));
@@ -170,6 +208,28 @@ extends TestCase
         assertTrue(answerKey.get(0).getSongTitle().equals("Uma Thurman"));
         answerKey.insertionSort("Genre", answers);
         assertTrue(answerKey.get(0).getGenre().equals("disco"));
-        for (int count = 0; count < answers.length; count++);
-    }    
+    }
+
+    /**
+     * Tests iterator.
+     */
+    public void testIterator()
+    {
+        DoublyLinkedList<Person> emptyList = new DoublyLinkedList<Person>();
+        Iterator<Person> emptyIter = emptyList.iterator();
+        list.add("Hello");
+        assertEquals(true, iter.hasNext());
+        assertEquals(false, emptyIter.hasNext());
+        assertTrue(list.get(0).equals(iter.next()));
+        Exception exception = null;
+        try {
+            emptyIter.next();
+        }
+        catch (NoSuchElementException n)
+        {
+            exception = n;
+        }
+        assertNotNull(exception);
+        assertTrue(exception instanceof NoSuchElementException);
+    }
 }

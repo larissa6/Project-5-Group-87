@@ -17,11 +17,17 @@ import CS2114.WindowSide;
  *  Tara (taraa2)
  *  @version 2015.11.14
  */
-public class DisplayWindow
+public class GUIDisplayWindow
 {
     //Fields ------------------------------------------------------------------
     private Window window;
+    /**
+     * The width of the legend.
+     */
     private static int LEGEND_WIDTH = 50;
+    /**
+     * The height of the legend.
+     */
     private static int LEGEND_HEIGHT = 200;
     private int legendStartX;
     private int legendStartY;
@@ -30,7 +36,7 @@ public class DisplayWindow
     /**
      * creates a new DisplayWindow
      */
-    public DisplayWindow() {
+    public GUIDisplayWindow() {
         window = new Window("Project 5");
         legendStartX = window.getWidth() - LEGEND_WIDTH;
         legendStartY = window.getHeight() - LEGEND_HEIGHT;
@@ -80,8 +86,8 @@ public class DisplayWindow
      * @param button the previous button
      */
     public void clickedPrevious(Button button) {
-        //TODO go to the previous page
-        //TODO disable if at the first page
+        //  go to the previous page
+        //  disable if at the first page
     }
 
     /**
@@ -89,8 +95,8 @@ public class DisplayWindow
      * @param button the next button
      */
     public void clickedNext(Button button) {
-        //TODO go to next page
-        //TODO disable if at the last page
+        //  go to next page
+        //  disable if at the last page
     }
 
     /**
@@ -98,7 +104,7 @@ public class DisplayWindow
      * @param button the artist button
      */
     public void clickedArtist(Button button) {
-        //TODO sort by artist
+        //  sort by artist
     }
 
     /**
@@ -106,7 +112,7 @@ public class DisplayWindow
      * @param button the song button
      */
     public void clickedSong(Button button) {
-        //TODO sort by song name
+        //  sort by song name
     }
 
     /**
@@ -114,7 +120,7 @@ public class DisplayWindow
      * @param button the year button
      */
     public void clickedYear(Button button) {
-        //TODO sort by year
+        //  sort by year
     }
 
     /**
@@ -122,7 +128,7 @@ public class DisplayWindow
      * @param button the genre button
      */
     public void clickedGenre(Button button) {
-        //TODO sort by genre
+        //  sort by genre
     }
 
     /**
@@ -130,7 +136,7 @@ public class DisplayWindow
      * @param button the major button
      */
     public void clickedMajor(Button button) {
-        //TODO create graphs based on major
+        //  create graphs based on major
     }
 
     /**
@@ -138,7 +144,7 @@ public class DisplayWindow
      * @param button the hobby button
      */
     public void clickedHobby(Button button) {
-        //TODO create graphs based on hobby
+        //  create graphs based on hobby
     }
 
     /**
@@ -146,7 +152,7 @@ public class DisplayWindow
      * @param button the region button
      */
     public void clickedRegion(Button button) {
-        //TODO create graphs based on region
+        //  create graphs based on region
     }
 
     /**
@@ -170,7 +176,7 @@ public class DisplayWindow
         TextShape legend = new TextShape(legendStartX + 5, legendStartY + 5,
             "Legend");
         window.addShape(legend);
-        //TODO add colored text shapes based on student to determine what they
+        //  add colored text shapes based on student to determine what they
         //should be
 
         TextShape songChar = new TextShape(legendStartX + 10, legendStartY + 50,

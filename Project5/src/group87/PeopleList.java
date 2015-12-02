@@ -2,7 +2,9 @@ package group87;
 
 /**
  * A list of people.
- * @author Larissa Schneider (larissa6), Simone Stewart (simone5), Tara Amruthur (taraa2)
+ * @author Larissa Schneider (larissa6)
+ * @author Simone Stewart (simone5)
+ * @author Tara Amruthur (taraa2)
  * @version 2015.11.15
  */
 public class PeopleList 
@@ -10,7 +12,7 @@ public class PeopleList
     private int population;
     private DoublyLinkedList<Person> people;
     private DoublyLinkedList<Song> answerKey;
-    
+
     /**
      * Creates a new People List.
      */
@@ -19,7 +21,7 @@ public class PeopleList
         population = 0;
         people = new DoublyLinkedList<Person>();
     }
-    
+
     /**
      * Establishes the answer key.
      * @param key The answer key to be set.
@@ -28,7 +30,7 @@ public class PeopleList
     {
         answerKey = key;
     }
-    
+
     /**
      * Gets the answer key.
      * @return The key.
@@ -37,7 +39,7 @@ public class PeopleList
     {
         return answerKey;
     }
-    
+
     /**
      * Gets the people in the list.
      * @return The people
@@ -46,7 +48,7 @@ public class PeopleList
     {
         return people;
     }
-    
+
     /**
      * Gets the population of the list.
      * @return The population.
@@ -55,7 +57,7 @@ public class PeopleList
     {
         return population;
     }
-    
+
     /**
      * Adds a person to the people list.
      * @param person The person to be added.
@@ -65,10 +67,9 @@ public class PeopleList
         people.add(person);
         population++;
     }
-    
+
     /**
      * Calculates the percentages of responses by song.
-     * @param list The people whose results are being calculated.
      * @return The percentages.
      */
     public double[] getPercentage()
@@ -100,10 +101,9 @@ public class PeopleList
         }
         return returnDouble;
     }
-    
+
     /**
      * Calculates the percentage of answers by hobby.
-     * @param list The list of people to be calculated.
      * @return An array of doubles with a -1 indicating a change in hobby.
      */
     public double[] getPercentageByHobby()
@@ -151,7 +151,7 @@ public class PeopleList
         for (int count = 0; count < artArray.length; count++)
         {
             returnArray[count + returnIndex] = artArray[count];
-            
+
         }
         returnIndex = returnIndex + artArray.length;
         returnArray[returnIndex] = -1;
@@ -171,7 +171,7 @@ public class PeopleList
         }
         return returnArray;
     }
-    
+
     /**
      * Sorts the song key and the percentages by song title.
      * @param answers The answers to be sorted.
@@ -179,10 +179,10 @@ public class PeopleList
      */
     public double[] sortBySongTitle(double[] answers)   
     {
-     // Sorting moved to DoublyLinkedList
+        // Sorting moved to DoublyLinkedList
         return null;
     }
-    
+
     /**
      * Sorts the song key and the percentages by genre.
      * @param answers The answers to be sorted.
@@ -193,7 +193,7 @@ public class PeopleList
         // Sorting moved to DoublyLinkedList
         return null;
     }
-    
+
     /**
      * Sorts the song key and the percentages by year.
      * @param answers The answers to be sorted.
@@ -202,8 +202,9 @@ public class PeopleList
     public double[] sortByYear(double[] answers)
     {
         // Sorting moved to DoublyLinkedList
-        return null;}
-    
+        return null;
+    }
+
     /**
      * Sorts the song key and the percentages by artist name.
      * @param answers The answers to be sorted.
@@ -212,12 +213,14 @@ public class PeopleList
     public double[] sortByArtistName(double[] answers)
     {
         // Sorting moved to DoublyLinkedList
-        return null;   }
-    
+        return null;   
+    }
+
     public void intermediateOutput()
     {
         double[] results = this.getPercentageByHobby();
-        double[] resultsByTitle = answerKey.insertionSort("Song Title", results);
+        double[] resultsByTitle = 
+                answerKey.insertionSort("Song Title", results);
         System.out.println("Hobby, sorted by song title: ");
         for (int count = 0; count < resultsByTitle.length; count++)
         {
@@ -229,6 +232,6 @@ public class PeopleList
         {
             System.out.println(resultsByGenre[count]);
         }
-        
+
     }
 }

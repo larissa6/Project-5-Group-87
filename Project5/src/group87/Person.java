@@ -25,6 +25,7 @@ public class Person
         this.hobby = hobby;
         this.major = major;
         this.state = state;
+        this.date = date;
     }
     
     /**
