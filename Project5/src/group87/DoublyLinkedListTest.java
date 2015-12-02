@@ -186,30 +186,6 @@ extends TestCase
         assertEquals("world", list.remove(1));
     }
 
-
-    public void testInsertionSort()
-    {
-        DoublyLinkedList<Song> answerKey = new DoublyLinkedList<Song>();
-        answerKey.add(new Song("Elvis Costello",
-                "Watching the Detectives", "punk",
-                "1977"));
-        answerKey.add(new Song("Fall Out Boy",
-                "Uma Thurman", "rock", "2015"));
-        answerKey.add(new Song("Diana Ross",
-                "Upside Down", "disco", "1980"));
-        double[] answers = new double[6];
-        for (int count = 0; count < answers.length; count++)
-        {
-            answers[count] = 50;
-        }
-        answers[1] = 25;
-        answers[5] = 30;
-        answers = answerKey.insertionSort("Song Title", answers);
-        assertTrue(answerKey.get(0).getSongTitle().equals("Uma Thurman"));
-        answerKey.insertionSort("Genre", answers);
-        assertTrue(answerKey.get(0).getGenre().equals("disco"));
-    }
-
     /**
      * Tests iterator.
      */

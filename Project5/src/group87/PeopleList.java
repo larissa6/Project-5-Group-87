@@ -7,7 +7,7 @@ package group87;
  * @author Tara Amruthur (taraa2)
  * @version 2015.11.15
  */
-public class PeopleList 
+public class PeopleList
 {
     private int population;
     private DoublyLinkedList<Person> people;
@@ -177,7 +177,7 @@ public class PeopleList
      * @param answers The answers to be sorted.
      * @return The sorted answers
      */
-    public double[] sortBySongTitle(double[] answers)   
+    public double[] sortBySongTitle(double[] answers)
     {
         // Sorting moved to DoublyLinkedList
         return null;
@@ -213,13 +213,15 @@ public class PeopleList
     public double[] sortByArtistName(double[] answers)
     {
         // Sorting moved to DoublyLinkedList
-        return null;   
+        return null;
     }
 
-    public void intermediateOutput()
+    /*I don't think we'll need this if we put the percentages as fields
+     * in song
+     * public void intermediateOutput()
     {
         double[] results = this.getPercentageByHobby();
-        double[] resultsByTitle = 
+        double[] resultsByTitle =
                 answerKey.insertionSort("Song Title", results);
         System.out.println("Hobby, sorted by song title: ");
         for (int count = 0; count < resultsByTitle.length; count++)
@@ -234,4 +236,5 @@ public class PeopleList
         }
 
     }
+    */
 }
