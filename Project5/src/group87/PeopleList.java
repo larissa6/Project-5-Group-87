@@ -139,7 +139,7 @@ public class PeopleList
                 musicList.addPerson(person);
             }
         }
-        double[] readArray = readList.getPercentage();
+        double[] readArray = readList.getPercentage();  
         for (int count = 0; count < readArray.length; count++)
         {
             returnArray[count] = readArray[count];

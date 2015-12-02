@@ -13,18 +13,28 @@ import CS2114.WindowSide;
  *  Creates a window to display the data and sorts it as indicated by the
  *  buttons
  *
- *  @author Simone Stewart (simone5), Larissa Schneider (larissa6),
- *  Tara (taraa2)
- *  @version 2015.11.14
+ *  @author Simone Stewart (simone5),
+ *  @author Larissa Schneider (larissa6)
+ *  @author Tara Amruthur (taraa2)
+ *  @version 2015.12.01
  */
 public class GUIDisplayWindow
 {
     //Fields ------------------------------------------------------------------
     private Window window;
-    private static int LEGEND_WIDTH = 150;
-    private static int LEGEND_HEIGHT = 200;
+    private static int LEGEND_WIDTH = 130;
+    private static int LEGEND_HEIGHT = 127;
     private int legendStartX;
     private int legendStartY;
+    Graph graph1;
+    Graph graph2;
+    Graph graph3;
+    Graph graph4;
+    Graph graph5;
+    Graph graph6;
+    Graph graph7;
+    Graph graph8;
+    Graph graph9;
 
     //Constructor--------------------------------------------------------------
     /**
@@ -32,8 +42,8 @@ public class GUIDisplayWindow
      */
     public GUIDisplayWindow() {
         window = new Window("Project 5");
-        legendStartX = window.getWidth() - LEGEND_WIDTH;
-        legendStartY = window.getHeight() - LEGEND_HEIGHT;
+        legendStartX = window.getWidth() - 5;
+        legendStartY = window.getHeight() - 250;
 
         //Adds Buttons to the top of the window
         Button previous = new Button("<-- Prev");
@@ -72,7 +82,7 @@ public class GUIDisplayWindow
 
         //creates the initial legend
         updateLegend("hobby", "song");
-        sampleGraph();
+        Graph();
     }
 
     //Methods -----------------------------------------------------------------
@@ -165,11 +175,11 @@ public class GUIDisplayWindow
      * @param song the aspect of the song the data is sorted by
      */
     public void updateLegend(String student, String song) {
-        /*Shape border = new Shape(legendStartX, legendStartY, LEGEND_WIDTH,
+        Shape border = new Shape(legendStartX, legendStartY, LEGEND_WIDTH,
             LEGEND_HEIGHT, Color.BLACK);
-        border.setBackgroundColor(Color.WHITE);
+        border.setBackgroundColor(new Color(0, 0, 0, 0));
         window.addShape(border);
-        */
+        
 
         TextShape legend = new TextShape(legendStartX + 5, legendStartY + 5,
             "Legend");
@@ -213,31 +223,19 @@ public class GUIDisplayWindow
     }
 
     /**
-     * Makes a sample graph for the window
+     * Creates the graphs for the window
      */
-    public void sampleGraph() {
-        int x = 20;
-        int y = 20;
-        TextShape title = new TextShape(x, y, "All You Need is Love",
-            Color.BLACK);
-        title.setBackgroundColor(Color.WHITE);
-        TextShape artist = new TextShape(x, y + 15, "by The Beatles",
-            Color.BLACK);
-        artist.setBackgroundColor(Color.WHITE);
-        Shape pink = new Shape(x, y + 40, 100, 5, Color.MAGENTA);
-        Shape blue = new Shape(x, y + 45, 100, 5, Color.CYAN);
-        Shape orange = new Shape(x, y + 50, 100, 5, Color.ORANGE);
-        Shape green = new Shape(x, y + 55, 100, 5, Color.GREEN);
-        Shape divisor = new Shape(x + 50, y + 40, 5, 20, Color.BLACK);
+    public void Graph() {
+        graph1 = new Graph(20, 20, "", "", window);
+        graph2 = new Graph(220, 20, "", "", window);
+        graph3 = new Graph(420, 20, "", "", window);
+        graph4 = new Graph(20, 120, "", "", window);
+        graph5 = new Graph(220, 120, "", "", window);
+        graph6 = new Graph(420, 120, "", "", window);
+        graph7 = new Graph(20, 220, "", "", window);
+        graph8 = new Graph(220, 220, "", "", window);
+        graph9 = new Graph(420, 220, "", "", window);
 
-        window.addShape(title);
-        window.addShape(artist);
-        window.addShape(pink);
-        window.addShape(blue);
-        window.addShape(orange);
-        window.addShape(green);
-        window.addShape(divisor);
-        window.moveToFront(divisor);
     }
 
     /**
