@@ -200,63 +200,57 @@ public class DoublyLinkedList<E>
 
     /**
      * Inserts in order by Song Title.
-     * @param nodeToInsert The node to insert.
+     * @param node The node to insert.
      * @precondition the node must store a song item
      */
-    public void insertInOrderByTitle(Node<E> nodeToInsert)
+    public void insertInOrderByTitle(Node<E> node)
     {
-        String title = "";
-        String otherTitle = "";
-        Object item = nodeToInsert.getData();
-        title = ((Song) item).getSongTitle();
+        String title = ((Song) node.getData()).getSongTitle();
         Node<E> currentNode = first;
-        otherTitle = ((Song) currentNode.getData()).getSongTitle();
-        Node<E> previousNode = null;
-        while ((currentNode != null) && (title.compareTo(otherTitle) > 0))
+        String currentTitle = ((Song) currentNode.getData()).getSongTitle();
+        int index = 0;
+        while ((currentNode != null) && (title.compareTo(currentTitle) > 0))
         {
-            previousNode = currentNode;
-            currentNode = currentNode.next;
+            currentNode = currentNode.getNext();
+            index++;
         }
-        if (previousNode != null)
-        {
-            previousNode.setNext(nodeToInsert);
-            nodeToInsert.setNext(currentNode);
-        }
-        else
-        {
-            nodeToInsert.setNext(first);
-            first = nodeToInsert;
-        }
+        addNodeAtIndex(node.getData(), index);
     }
 
     /**
      * Inserts a node in order by Genre
-     * @param nodeToInsert The node to insert.
+     * @param node The node to insert.
      */
-    private void insertInOrderByGenre(Node<E> nodeToInsert)
+    private void insertInOrderByGenre(Node<E> node)
     {
-        String genre = "";
-        String otherGenre = "";
-        Object item = nodeToInsert.getData();
-        genre = ((Song) item).getGenre();
+        String genre = ((Song) node.getData()).getGenre();
         Node<E> currentNode = first;
-        otherGenre = ((Song) currentNode.getData()).getGenre();
-        Node<E> previousNode = null;
+        String otherGenre = ((Song) currentNode.getData()).getGenre();
+        int index = 0;
         while ((currentNode != null) && (genre.compareTo(otherGenre) > 0))
         {
-            previousNode = currentNode;
-            currentNode = currentNode.next;
+            currentNode = currentNode.getNext();
+            index++;
         }
-        if (previousNode != null)
+        addNodeAtIndex(node.getData(), index);
+    }
+
+    /**
+     * Inserts a node in order by Artist
+     * @param node the node to insert
+     * @precondition the node passed holds a Song object
+     */
+    private void insertInOderByArtist(Node<E> node) {
+        String artist = ((Song) node.getData()).getArtistName();
+        Node<E> currentNode = first;
+        String currentArtist  = ((Song) currentNode.getData()).getArtistName();
+        int index = 0;
+        while ((currentNode != null) && (artist.compareTo(currentArtist) > 0))
         {
-            previousNode.setNext(nodeToInsert);
-            nodeToInsert.setNext(currentNode);
+            currentNode = currentNode.getNext();
+            index++;
         }
-        else
-        {
-            nodeToInsert.setNext(first);
-            first = nodeToInsert;
-        }
+        addNodeAtIndex(node.getData(), index);
     }
 
     /**
@@ -266,7 +260,8 @@ public class DoublyLinkedList<E>
      * Currently can be either "Song Title" or "Genre."
      * @return the sorted answers.
      */
-    public double[] insertionSort(String param, double[] answers)
+    public DoublyLinkedList<Song> insertionSort(String param,
+        DoublyLinkedList<Song> answers)
     {
         double[] returnAnswers = answers;
         if (this.size > 1)
