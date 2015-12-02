@@ -164,144 +164,21 @@ public class DoublyLinkedList<E>
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException();
         }
-        Node<E> current = this.getNodeAtIndex(index);
-        if (current.equals(first))
-        {
-            first = current.getNext();
-            current.getNext().setPrevious(null);
-            current.setNext(null);
-        }
-        else if (current.equals(last))
-        {
-            last = current.getPrevious();
-            current.getPrevious().setNext(null);
-            current.setPrevious(null);
-        }
-        else
-        {
-            current.getPrevious().setNext(current.getNext());
-            current.getNext().setPrevious(current.getPrevious());
-        }
-
+        Node<E> ans = this.getNodeAtIndex(index);
         if (index == 0) {
-            current.setNext(first);
-            first = current;
+            ans.setNext(first);
+            first = ans;
         }
         else if (index == size - 1) {
-            current.setPrevious(last);
-            last = current;
+            ans.setPrevious(last);
+            last = ans;
         }
         else {
-            current.getPrevious().setNext(current.getNext());
-            current.getNext().setPrevious(current.getPrevious());
+            ans.getPrevious().setNext(ans.getNext());
+            ans.getNext().setPrevious(ans.getPrevious());
         }
-        return current.getData();
-    }
-
-    /**
-     * Inserts in order by Song Title.
-     * @param nodeToInsert The node to insert.
-     * @precondition the node must store a song item
-     */
-    public void insertInOrderByTitle(Node<E> nodeToInsert)
-    {
-        String title = "";
-        String otherTitle = "";
-        Object item = nodeToInsert.getData();
-        title = ((Song) item).getSongTitle();
-        Node<E> currentNode = first;
-        otherTitle = ((Song) currentNode.getData()).getSongTitle();
-        Node<E> previousNode = null;
-        while ((currentNode != null) && (title.compareTo(otherTitle) > 0))
-        {
-            previousNode = currentNode;
-            currentNode = currentNode.next;
-        }
-        if (previousNode != null)
-        {
-            previousNode.setNext(nodeToInsert);
-            nodeToInsert.setNext(currentNode);
-        }
-        else
-        {
-            nodeToInsert.setNext(first);
-            first = nodeToInsert;
-        }
-    }
-
-    /**
-     * Inserts a node in order by Genre
-     * @param nodeToInsert The node to insert.
-     */
-    private void insertInOrderByGenre(Node<E> nodeToInsert)
-    {
-        String genre = "";
-        String otherGenre = "";
-        Object item = nodeToInsert.getData();
-        genre = ((Song) item).getGenre();
-        Node<E> currentNode = first;
-        otherGenre = ((Song) currentNode.getData()).getGenre();
-        Node<E> previousNode = null;
-        while ((currentNode != null) && (genre.compareTo(otherGenre) > 0))
-        {
-            previousNode = currentNode;
-            currentNode = currentNode.next;
-        }
-        if (previousNode != null)
-        {
-            previousNode.setNext(nodeToInsert);
-            nodeToInsert.setNext(currentNode);
-        }
-        else
-        {
-            nodeToInsert.setNext(first);
-            first = nodeToInsert;
-        }
-    }
-
-    /**
-     * Sorts a doubly linked list of songs.
-     * @param param The focus of the sort.
-     * @param answers The answer key to also be sorted.
-     * Currently can be either "Song Title" or "Genre."
-     * @return the sorted answers.
-     */
-    public double[] insertionSort(String param, double[] answers)
-    {
-        double[] returnAnswers = answers;
-        if (this.size > 1)
-        {
-            Node<E> unsortedPart = this.first.next;
-            this.first.setNext(null);
-            while (unsortedPart != null)
-            {
-                Node<E> nodeToInsert = unsortedPart;
-                unsortedPart = unsortedPart.next;
-                if (param.equals("Song Title"))
-                {
-                    insertInOrderByTitle(nodeToInsert);
-                }
-                else if (param.equals("Genre"))
-                {
-                    insertInOrderByGenre(nodeToInsert);
-                }
-                Node<E> indexNode = first;
-                int index = 0;
-                int answersIndex = 0;
-                while (indexNode != null)
-                {
-                    if (indexNode.equals(nodeToInsert))
-                    {
-                        returnAnswers[index] = answers[answersIndex];
-                        returnAnswers[index + 1] = answers[answersIndex + 1];
-                        index = index + 2;
-                        answersIndex = answersIndex + 2;
-                    }
-                    indexNode = indexNode.next;
-                }
-            }
-        }
-        return returnAnswers;
+        size--;
+        return ans.getData();
     }
 
     /**
