@@ -10,19 +10,28 @@ package group87;
  *  Tara (taraa2)
  *  @version 2015.12.02
  */
-public class SongList extends DoublyLinkedList<Song>
+public class SongList
 {
     //Fields ------------------------------------------------------------------
+    private DoublyLinkedList<Song> songList;
 
     //Constructor -------------------------------------------------------------
     /**
      * Creates a new this object.
+     * @param list a doubly linked list of songs to sort
      */
-    public SongList() {
-        super();
+    public SongList(DoublyLinkedList<Song> list) {
+        songList = list;
     }
 
     //Methods -----------------------------------------------------------------
+    /**
+     * @return the list as a DoublyLinkedList
+     */
+    public DoublyLinkedList<Song> toList() {
+        return songList;
+    }
+
     /**
      * sorts the list by song title, artist, or genre
      * @param param the song attribute to be sorted by
@@ -30,50 +39,51 @@ public class SongList extends DoublyLinkedList<Song>
     public void sort(String param) {
         DoublyLinkedList<Song> ans = new DoublyLinkedList<Song>();
         if (param.equals("Song Title")) {
-            while (size() != 0) {
-                String title = get(0).getSongTitle();
+            while (songList.size() != 0) {
+                String title = songList.get(0).getSongTitle();
                 int index = 0;
-                for (int i = 0; i < size(); i++) {
-                    if (get(i).getSongTitle().compareTo(title) < 0)
+                for (int i = 0; i < songList.size(); i++) {
+                    if (songList.get(i).getSongTitle().compareTo(title) < 0)
                     {
-                        title = get(i).getSongTitle();
+                        title = songList.get(i).getSongTitle();
                         index = i;
                     }
                 }
-                ans.add(remove(index));
+                ans.add(songList.remove(index));
             }
         }
         else if (param.equals("Artist Name")) {
-            while (size() != 0) {
-                String artist = get(0).getArtistName();
+            while (songList.size() != 0) {
+                String artist = songList.get(0).getArtistName();
                 int index = 0;
-                for (int i = 0; i < this.size(); i++) {
-                    if (get(i).getArtistName().compareTo(artist) < 0)
+                for (int i = 0; i < songList.size(); i++) {
+                    if (songList.get(i).getArtistName().compareTo(artist) < 0)
                     {
-                        artist = this.get(i).getArtistName();
+                        artist = songList.get(i).getArtistName();
                         index = i;
                     }
                 }
-                ans.add(remove(index));
+                ans.add(songList.remove(index));
             }
         }
         else if (param.equals("Genre")) {
-            while (size() != 0) {
-                String genre = this.get(0).getGenre();
+            while (songList.size() != 0) {
+                String genre = songList.get(0).getGenre();
                 int index = 0;
-                for (int i = 0; i < this.size(); i++) {
-                    if (get(i).getGenre().compareTo(genre) < 0)
+                for (int i = 0; i < songList.size(); i++) {
+                    if (songList.get(i).getGenre().compareTo(genre) < 0)
                     {
-                        genre = get(i).getGenre();
+                        genre = songList.get(i).getGenre();
                         index = i;
                     }
                 }
-                add(this.remove(index));
+                ans.add(this.songList.remove(index));
             }
         }
         else {
             throw new IllegalArgumentException("Please choose Song Title, "
                 + "Artist Name, or Genre");
         }
+        songList = ans;
     }
 }
