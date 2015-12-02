@@ -68,7 +68,7 @@ public class DisplayWindow
         window.addButton(region, WindowSide.SOUTH);
         Button quit = new Button("Quit");
         quit.onClick(this);
-        window.addButton(hobby, WindowSide.SOUTH);
+        window.addButton(quit, WindowSide.SOUTH);
 
         //creates the initial legend
         updateLegend("hobby", "song");
