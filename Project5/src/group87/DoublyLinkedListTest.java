@@ -88,7 +88,7 @@ extends TestCase
      * tests the get method for an index that is out of bounds
      */
     public void testGetOut() {
-        list.add("hello");
+        list.add("VT");
         Exception thrown = null;
         try {
             list.get(5);
