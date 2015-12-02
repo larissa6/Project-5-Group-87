@@ -201,8 +201,9 @@ public class DoublyLinkedList<E>
     /**
      * Inserts in order by Song Title.
      * @param nodeToInsert The node to insert.
+     * @precondition the node must store a song item
      */
-    private void insertInOrderByTitle(Node<E> nodeToInsert)
+    public void insertInOrderByTitle(Node<E> nodeToInsert)
     {
         String title = "";
         String otherTitle = "";
@@ -227,7 +228,7 @@ public class DoublyLinkedList<E>
             first = nodeToInsert;
         }
     }
-    
+
     /**
      * Inserts a node in order by Genre
      * @param nodeToInsert The node to insert.
@@ -260,7 +261,7 @@ public class DoublyLinkedList<E>
 
     /**
      * Sorts a doubly linked list of songs.
-     * @param param The focus of the sort. 
+     * @param param The focus of the sort.
      * @param answers The answer key to also be sorted.
      * Currently can be either "Song Title" or "Genre."
      * @return the sorted answers.
@@ -304,7 +305,7 @@ public class DoublyLinkedList<E>
     }
 
     /**
-     * 
+     *
     /**
      *  Nodes store data in the list and have pointers to the previous and
      *  next nodes
@@ -367,14 +368,15 @@ public class DoublyLinkedList<E>
         }
     }
     @SuppressWarnings("unchecked")
-    public Iterator<Person> iterator() 
+    public Iterator<Person> iterator()
     {
         return new DLinkedListIterator();
     }
-    
+
     /**
      * Class for the WaitingPartyIterator.
-     * @author Tara Amruthur (taraa2), Larissa Schneider (larissa6), Simone Stewart (simone5)
+     * @author Tara Amruthur (taraa2), Larissa Schneider (larissa6),
+     * Simone Stewart (simone5)
      * @version 11.20.2015
      *
      */
@@ -383,7 +385,7 @@ public class DoublyLinkedList<E>
     {
 
         private int index;
-        
+
         /**
          * Constructor for class.
          */
@@ -391,12 +393,12 @@ public class DoublyLinkedList<E>
         {
             index = 0;
         }
-        
+
         /**
          * Checks if there is an object after the current index.
          */
         @Override
-        public boolean hasNext() 
+        public boolean hasNext()
         {
             return index < size();
         }
@@ -405,7 +407,7 @@ public class DoublyLinkedList<E>
          * Returns next object.
          */
         @Override
-        public Object next() 
+        public Object next()
         {
             //Checks if there is something next.
             //Throws an exception if not true.
@@ -416,6 +418,6 @@ public class DoublyLinkedList<E>
             index++;
             return get(index - 1);
         }
-        
+
     }
 }

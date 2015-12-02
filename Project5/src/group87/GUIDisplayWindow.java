@@ -21,13 +21,7 @@ public class GUIDisplayWindow
 {
     //Fields ------------------------------------------------------------------
     private Window window;
-    /**
-     * The width of the legend.
-     */
-    private static int LEGEND_WIDTH = 50;
-    /**
-     * The height of the legend.
-     */
+    private static int LEGEND_WIDTH = 150;
     private static int LEGEND_HEIGHT = 200;
     private int legendStartX;
     private int legendStartY;
@@ -74,10 +68,11 @@ public class GUIDisplayWindow
         window.addButton(region, WindowSide.SOUTH);
         Button quit = new Button("Quit");
         quit.onClick(this);
-        window.addButton(hobby, WindowSide.SOUTH);
+        window.addButton(quit, WindowSide.SOUTH);
 
         //creates the initial legend
         updateLegend("hobby", "song");
+        sampleGraph();
     }
 
     //Methods -----------------------------------------------------------------
@@ -86,8 +81,8 @@ public class GUIDisplayWindow
      * @param button the previous button
      */
     public void clickedPrevious(Button button) {
-        //  go to the previous page
-        //  disable if at the first page
+        //TODO go to the previous page
+        //TODO disable if at the first page
     }
 
     /**
@@ -95,8 +90,8 @@ public class GUIDisplayWindow
      * @param button the next button
      */
     public void clickedNext(Button button) {
-        //  go to next page
-        //  disable if at the last page
+        //TODO go to next page
+        //TODO disable if at the last page
     }
 
     /**
@@ -104,7 +99,7 @@ public class GUIDisplayWindow
      * @param button the artist button
      */
     public void clickedArtist(Button button) {
-        //  sort by artist
+        //TODO sort by artist
     }
 
     /**
@@ -112,7 +107,7 @@ public class GUIDisplayWindow
      * @param button the song button
      */
     public void clickedSong(Button button) {
-        //  sort by song name
+        //TODO sort by song name
     }
 
     /**
@@ -120,7 +115,7 @@ public class GUIDisplayWindow
      * @param button the year button
      */
     public void clickedYear(Button button) {
-        //  sort by year
+        //TODO sort by year
     }
 
     /**
@@ -128,7 +123,7 @@ public class GUIDisplayWindow
      * @param button the genre button
      */
     public void clickedGenre(Button button) {
-        //  sort by genre
+        //TODO sort by genre
     }
 
     /**
@@ -136,7 +131,7 @@ public class GUIDisplayWindow
      * @param button the major button
      */
     public void clickedMajor(Button button) {
-        //  create graphs based on major
+        //TODO create graphs based on major
     }
 
     /**
@@ -144,7 +139,7 @@ public class GUIDisplayWindow
      * @param button the hobby button
      */
     public void clickedHobby(Button button) {
-        //  create graphs based on hobby
+        //TODO create graphs based on hobby
     }
 
     /**
@@ -152,7 +147,7 @@ public class GUIDisplayWindow
      * @param button the region button
      */
     public void clickedRegion(Button button) {
-        //  create graphs based on region
+        //TODO create graphs based on region
     }
 
     /**
@@ -170,26 +165,86 @@ public class GUIDisplayWindow
      * @param song the aspect of the song the data is sorted by
      */
     public void updateLegend(String student, String song) {
-        Shape border = new Shape(legendStartX, legendStartY, LEGEND_WIDTH,
+        /*Shape border = new Shape(legendStartX, legendStartY, LEGEND_WIDTH,
             LEGEND_HEIGHT, Color.BLACK);
+        border.setBackgroundColor(Color.WHITE);
         window.addShape(border);
+        */
+
         TextShape legend = new TextShape(legendStartX + 5, legendStartY + 5,
             "Legend");
+        legend.setBackgroundColor(Color.WHITE);
         window.addShape(legend);
-        //  add colored text shapes based on student to determine what they
+        //TODO add colored text shapes based on student to determine what they
         //should be
+        TextShape read = new TextShape(legendStartX + 5, legendStartY + 20,
+            "Read", Color.MAGENTA);
+        read.setBackgroundColor(Color.WHITE);
+        window.addShape(read);
+        TextShape art = new TextShape(legendStartX + 5, legendStartY + 35,
+            "Art", Color.CYAN);
+        art.setBackgroundColor(Color.WHITE);
+        window.addShape(art);
+        TextShape sports = new TextShape(legendStartX + 5, legendStartY + 50,
+            "Sports", Color.ORANGE);
+        sports.setBackgroundColor(Color.WHITE);
+        window.addShape(sports);
+        TextShape music = new TextShape(legendStartX + 5, legendStartY + 65,
+            "Music", Color.GREEN);
+        music.setBackgroundColor(Color.WHITE);
+        window.addShape(music);
 
-        TextShape songChar = new TextShape(legendStartX + 10, legendStartY + 50,
+        //Graph Legend
+        TextShape songChar = new TextShape(legendStartX + 10, legendStartY + 80,
             song, Color.BLACK);
+        songChar.setBackgroundColor(Color.WHITE);
         window.addShape(songChar);
-        TextShape heard = new TextShape(legendStartX + 5, legendStartY + 65,
-            "Heard");
+        TextShape heard = new TextShape(legendStartX - 25, legendStartY + 100,
+            "Heard", Color.BLACK);
+        heard.setBackgroundColor(Color.WHITE);
         window.addShape(heard);
-        Shape division = new Shape(legendStartX + 15, legendStartY + 65,
-            5, 20);
+        Shape division = new Shape(legendStartX + 20, legendStartY + 95,
+            5, 20, Color.BLACK);
         window.addShape(division);
-        TextShape likes = new TextShape(legendStartX + 30, legendStartY + 65,
-            "Likes");
+        TextShape likes = new TextShape(legendStartX + 33, legendStartY + 100,
+            "Likes", Color.BLACK);
+        likes.setBackgroundColor(Color.WHITE);
         window.addShape(likes);
+    }
+
+    /**
+     * Makes a sample graph for the window
+     */
+    public void sampleGraph() {
+        int x = 20;
+        int y = 20;
+        TextShape title = new TextShape(x, y, "All You Need is Love",
+            Color.BLACK);
+        title.setBackgroundColor(Color.WHITE);
+        TextShape artist = new TextShape(x, y + 15, "by The Beatles",
+            Color.BLACK);
+        artist.setBackgroundColor(Color.WHITE);
+        Shape pink = new Shape(x, y + 40, 100, 5, Color.MAGENTA);
+        Shape blue = new Shape(x, y + 45, 100, 5, Color.CYAN);
+        Shape orange = new Shape(x, y + 50, 100, 5, Color.ORANGE);
+        Shape green = new Shape(x, y + 55, 100, 5, Color.GREEN);
+        Shape divisor = new Shape(x + 50, y + 40, 5, 20, Color.BLACK);
+
+        window.addShape(title);
+        window.addShape(artist);
+        window.addShape(pink);
+        window.addShape(blue);
+        window.addShape(orange);
+        window.addShape(green);
+        window.addShape(divisor);
+        window.moveToFront(divisor);
+    }
+
+    /**
+     * creates a new window for testing
+     * @param args unused here
+     */
+    public static void main(String[] args) {
+        new GUIDisplayWindow();
     }
 }
