@@ -2,6 +2,8 @@ package group87;
 
 import CS2114.TextShape;
 import java.awt.Color;
+import java.io.IOException;
+
 import CS2114.Shape;
 import CS2114.Window;
 import CS2114.Button;
@@ -26,15 +28,24 @@ public class GUIDisplayWindow
     private static int LEGEND_HEIGHT = 127;
     private int legendStartX;
     private int legendStartY;
-    Graph graph1;
-    Graph graph2;
-    Graph graph3;
-    Graph graph4;
-    Graph graph5;
-    Graph graph6;
-    Graph graph7;
-    Graph graph8;
-    Graph graph9;
+    private Graph graph1;
+    private Graph graph2;
+    private Graph graph3;
+    private Graph graph4;
+    private Graph graph5;
+    private Graph graph6;
+    private Graph graph7;
+    private Graph graph8;
+    private Graph graph9;
+    private PeopleList myPeople;
+    private SongList mySongs;
+    private int peopleIndex;
+    private int songIndex;
+    private Shape coverShape;
+    private TextShape start;
+    private Legend legend;
+    private Button previous;
+    private Button next;
 
     //Constructor--------------------------------------------------------------
     /**
@@ -44,45 +55,71 @@ public class GUIDisplayWindow
         window = new Window("Project 5");
         legendStartX = window.getWidth() - 5;
         legendStartY = window.getHeight() - 250;
-
+        peopleIndex = 0;
+        songIndex = 0;
+        try {
+            myPeople = Input.readFile("MusicSurveyData.csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            mySongs = Input.readSongFile("SongList.csv");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //Adds Buttons to the top of the window
-        Button previous = new Button("<-- Prev");
-        previous.onClick(this);
+        previous = new Button("<-- Prev");
+        previous.onClick(this, "clickedQuit");
         window.addButton(previous, WindowSide.NORTH);
         Button artist = new Button("Sort by Artist Name");
         previous.disable();
-        artist.onClick(this);
+        artist.onClick(this, "clickedArtist");
         window.addButton(artist, WindowSide.NORTH);
         Button song = new Button("Sort by Song Title");
-        song.onClick(this);
+        song.onClick(this, "clickedSong");
         window.addButton(song, WindowSide.NORTH);
         Button year = new Button("Sort by Release Year");
-        year.onClick(this);
+        year.onClick(this, "clickedYear");
         window.addButton(year, WindowSide.NORTH);
         Button genre = new Button("Sort by Genre");
-        genre.onClick(this);
+        genre.onClick(this, "clickedGenre");
         window.addButton(genre, WindowSide.NORTH);
-        Button next = new Button("Next -->");
-        next.onClick(this);
+        next = new Button("Next -->");
+        next.onClick(this, "clickedNext");
         window.addButton(next, WindowSide.NORTH);
-
+        next.disable();
         //Adds Buttons to the bottom of the window
         Button hobby = new Button("Represent Hobby");
-        hobby.onClick(this);
+        hobby.onClick(this, "clickedHobby");
         window.addButton(hobby, WindowSide.SOUTH);
         Button major = new Button("Represent Major");
-        major.onClick(this);
+        major.onClick(this, "clickedMajor");
         window.addButton(major, WindowSide.SOUTH);
         Button region = new Button("Represent Region");
-        region.onClick(this);
+        region.onClick(this, "clickedRegion");
         window.addButton(region, WindowSide.SOUTH);
         Button quit = new Button("Quit");
-        quit.onClick(this);
+        quit.onClick(this, "clickedQuit");
         window.addButton(quit, WindowSide.SOUTH);
+        coverShape = new Shape(0,0,window.getWidth(),window.getHeight(),Color.WHITE);
+        start = new TextShape(0,0, "Please select how to represent songs.");
+        start.moveTo(window.getWidth()/2 - start.getWidth()/2, window.getHeight()/2 - start.getHeight()/2);
 
         //creates the initial legend
-        updateLegend("hobby", "song");
-        Graph();
+        legend = new Legend(window, legendStartX, legendStartY);
+        graph1 = new Graph(20, 20, "", "", window);
+        graph2 = new Graph(220, 20, "", "", window);
+        graph3 = new Graph(420, 20, "", "", window);
+        graph4 = new Graph(20, 120, "", "", window);
+        graph5 = new Graph(220, 120, "", "", window);
+        graph6 = new Graph(420, 120, "", "", window);
+        graph7 = new Graph(20, 220, "", "", window);
+        graph8 = new Graph(220, 220, "", "", window);
+        graph9 = new Graph(420, 220, "", "", window);
+        window.addShape(coverShape);
+        window.moveToFront(coverShape);
+        window.addShape(start);
+        window.moveToFront(start);
     }
 
     //Methods -----------------------------------------------------------------
@@ -141,7 +178,9 @@ public class GUIDisplayWindow
      * @param button the major button
      */
     public void clickedMajor(Button button) {
-        //TODO create graphs based on major
+        start.remove();
+        coverShape.remove();
+        legend.updateLegend("major");
     }
 
     /**
@@ -149,7 +188,9 @@ public class GUIDisplayWindow
      * @param button the hobby button
      */
     public void clickedHobby(Button button) {
-        //TODO create graphs based on hobby
+        start.remove();
+        coverShape.remove();
+        legend.updateLegend("hobby");
     }
 
     /**
@@ -157,7 +198,9 @@ public class GUIDisplayWindow
      * @param button the region button
      */
     public void clickedRegion(Button button) {
-        //TODO create graphs based on region
+        start.remove();
+        coverShape.remove();
+        legend.updateLegend("region");
     }
 
     /**
@@ -171,72 +214,9 @@ public class GUIDisplayWindow
 
     /**
      * updates the legend in the window
-     * @param student the aspect of students the data is sorted by
-     * @param song the aspect of the song the data is sorted by
+     * @param representBy the aspect of students the data is sorted by
      */
-    public void updateLegend(String student, String song) {
-        Shape border = new Shape(legendStartX, legendStartY, LEGEND_WIDTH,
-            LEGEND_HEIGHT, Color.BLACK);
-        border.setBackgroundColor(new Color(0, 0, 0, 0));
-        window.addShape(border);
-        
 
-        TextShape legend = new TextShape(legendStartX + 5, legendStartY + 5,
-            "Legend");
-        legend.setBackgroundColor(Color.WHITE);
-        window.addShape(legend);
-        //TODO add colored text shapes based on student to determine what they
-        //should be
-        TextShape read = new TextShape(legendStartX + 5, legendStartY + 20,
-            "Read", Color.MAGENTA);
-        read.setBackgroundColor(Color.WHITE);
-        window.addShape(read);
-        TextShape art = new TextShape(legendStartX + 5, legendStartY + 35,
-            "Art", Color.CYAN);
-        art.setBackgroundColor(Color.WHITE);
-        window.addShape(art);
-        TextShape sports = new TextShape(legendStartX + 5, legendStartY + 50,
-            "Sports", Color.ORANGE);
-        sports.setBackgroundColor(Color.WHITE);
-        window.addShape(sports);
-        TextShape music = new TextShape(legendStartX + 5, legendStartY + 65,
-            "Music", Color.GREEN);
-        music.setBackgroundColor(Color.WHITE);
-        window.addShape(music);
-
-        //Graph Legend
-        TextShape songChar = new TextShape(legendStartX + 10, legendStartY + 80,
-            song, Color.BLACK);
-        songChar.setBackgroundColor(Color.WHITE);
-        window.addShape(songChar);
-        TextShape heard = new TextShape(legendStartX - 25, legendStartY + 100,
-            "Heard", Color.BLACK);
-        heard.setBackgroundColor(Color.WHITE);
-        window.addShape(heard);
-        Shape division = new Shape(legendStartX + 20, legendStartY + 95,
-            5, 20, Color.BLACK);
-        window.addShape(division);
-        TextShape likes = new TextShape(legendStartX + 33, legendStartY + 100,
-            "Likes", Color.BLACK);
-        likes.setBackgroundColor(Color.WHITE);
-        window.addShape(likes);
-    }
-
-    /**
-     * Creates the graphs for the window
-     */
-    public void Graph() {
-        graph1 = new Graph(20, 20, "", "", window);
-        graph2 = new Graph(220, 20, "", "", window);
-        graph3 = new Graph(420, 20, "", "", window);
-        graph4 = new Graph(20, 120, "", "", window);
-        graph5 = new Graph(220, 120, "", "", window);
-        graph6 = new Graph(420, 120, "", "", window);
-        graph7 = new Graph(20, 220, "", "", window);
-        graph8 = new Graph(220, 220, "", "", window);
-        graph9 = new Graph(420, 220, "", "", window);
-
-    }
 
     /**
      * creates a new window for testing

@@ -173,22 +173,6 @@ public class PeopleListTest extends TestCase
         double[] results = list.getPercentage();
         assertNull(list.sortByArtistName(results));
     }
-    
-    /**
-     * Tests the ouput for the intermediate solution.
-     */
-    public void testIntermediateOutput()
-    {
-        Exception exception = null;
-        try
-        {
-        list.intermediateOutput();
-        }
-        catch (Exception e)
-        {
-            exception = e;
-        }
-        assertNull(exception);
-    }
+
     
 }

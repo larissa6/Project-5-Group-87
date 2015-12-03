@@ -18,18 +18,18 @@ public class Graph
     private String song;
     private String artist;
     private int width;
-    TextShape title;
-    TextShape artistListing;
-    Shape pinkLeft;
-    Shape blueLeft;
-    Shape orangeLeft;
-    Shape greenLeft;
-    Shape divisor;
-    Shape pinkRight;
-    Shape blueRight;
-    Shape orangeRight;
-    Shape greenRight;
-    Window window;
+    private TextShape title;
+    private TextShape artistListing;
+    private Shape pinkLeft;
+    private Shape blueLeft;
+    private Shape orangeLeft;
+    private Shape greenLeft;
+    private Shape divisor;
+    private Shape pinkRight;
+    private Shape blueRight;
+    private Shape orangeRight;
+    private Shape greenRight;
+    private Window window;
     
     /**
      * Creates a new graph

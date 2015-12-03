@@ -33,7 +33,7 @@ public class SongList
     }
 
     /**
-     * sorts the list by song title, artist, or genre
+     * sorts the list by song title, artist, year, or genre
      * @param param the song attribute to be sorted by
      */
     public void sort(String param) {
@@ -80,9 +80,24 @@ public class SongList
                 ans.add(this.songList.remove(index));
             }
         }
+        else if (param.equals("Year"))
+        {
+            while (songList.size() != 0) {
+                String year = songList.get(0).getGenre();
+                int index = 0;
+                for (int i = 0; i < songList.size(); i++) {
+                    if (songList.get(i).getYear().compareTo(year) < 0)
+                    {
+                        year = songList.get(i).getYear();
+                        index = i;
+                    }
+                }
+                ans.add((this.songList.remove(index)));
+            }
+        }
         else {
             throw new IllegalArgumentException("Please choose Song Title, "
-                + "Artist Name, or Genre");
+                + "Artist Name, Year, or Genre");
         }
         songList = ans;
     }
