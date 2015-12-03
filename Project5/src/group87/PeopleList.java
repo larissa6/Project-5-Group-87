@@ -91,7 +91,7 @@ public class PeopleList
                 sum = 0;
                 for (int i = 0; i < this.getPopulation(); i++)
                 {
-                    if (myPeople.get(i).getAnswers().get(count).equals("Yes"))
+                    if (myPeople.get(i).getAnswers().get(count).equals(" Yes"))
                     {
                         sum++;
                     }
@@ -122,19 +122,19 @@ public class PeopleList
         {
             Person person = this.getPeople().get(count);
             String hobby = person.getHobby();
-            if (hobby.equals("read"))
+            if (hobby.equals(" reading"))
             {
                 readList.addPerson(person);
             }
-            else if (hobby.equals("art"))
+            else if (hobby.equals(" art"))
             {
                 artList.addPerson(person);
             }
-            else if (hobby.equals("sports"))
+            else if (hobby.equals(" sports"))
             {
                 sportsList.addPerson(person);
             }
-            else if (hobby.equals("music"))
+            else if (hobby.equals(" music"))
             {
                 musicList.addPerson(person);
             }
@@ -173,46 +173,143 @@ public class PeopleList
     }
 
     /**
-     * Sorts the song key and the percentages by song title.
-     * @param answers The answers to be sorted.
-     * @return The sorted answers
+     * Calculates the percentage of answers by hobby.
+     * @return An array of doubles with a -1 indicating a change in hobby.
      */
-    public double[] sortBySongTitle(double[] answers)   
+    public double[] getPercentageByMajor()
     {
-        // Sorting moved to DoublyLinkedList
-        return null;
+        PeopleList csList = new PeopleList();
+        csList.setAnswerKey(answerKey);
+        PeopleList otherEngList = new PeopleList();
+        otherEngList.setAnswerKey(answerKey);
+        PeopleList mathList = new PeopleList();
+        mathList.setAnswerKey(answerKey);
+        PeopleList otherList = new PeopleList();
+        otherList.setAnswerKey(answerKey);
+        double[] returnArray = new double[this.getAnswerKey().size() * 8 + 3];
+        int returnIndex = 0;
+        for (int count = 0; count < this.getPopulation(); count++)
+        {
+            Person person = this.getPeople().get(count);
+            String major = person.getMajor();
+            if (major.equals(" Computer Science"))
+            {
+                csList.addPerson(person);
+            }
+            else if (major.equals(" Other Engineering"))
+            {
+                otherEngList.addPerson(person);
+            }
+            else if (major.equals(" Math or CMDA"))
+            {
+                mathList.addPerson(person);
+            }
+            else if (major.equals(" Other"))
+            {
+                otherList.addPerson(person);
+            }
+        }
+        double[] csArray = csList.getPercentage();
+        for (int count = 0; count < csArray.length; count++)
+        {
+            returnArray[count] = csArray[count];
+        }
+        returnIndex = returnIndex + csArray.length;
+        returnArray[returnIndex] = -1;
+        returnIndex++;
+        double[] otherEngArray = otherEngList.getPercentage();
+        for (int count = 0; count < otherEngArray.length; count++)
+        {
+            returnArray[count + returnIndex] = otherEngArray[count];
+
+        }
+        returnIndex = returnIndex + otherEngArray.length;
+        returnArray[returnIndex] = -1;
+        returnIndex++;
+        double[] mathArray = mathList.getPercentage();
+        for (int count = 0; count < mathArray.length; count++)
+        {
+            returnArray[count + returnIndex] = mathArray[count];
+        }
+        returnIndex = returnIndex + mathArray.length;
+        returnArray[returnIndex] = -1;
+        returnIndex++;
+        double[] otherArray = otherList.getPercentage();
+        for (int count = 0; count < otherArray.length; count++)
+        {
+            returnArray[count + returnIndex] = otherArray[count];
+        }
+        return returnArray;
     }
 
-    /**
-     * Sorts the song key and the percentages by genre.
-     * @param answers The answers to be sorted.
-     * @return The sorted answers
-     */
-    public double[] sortByGenre(double[] answers)
-    {
-        // Sorting moved to DoublyLinkedList
-        return null;
-    }
 
     /**
-     * Sorts the song key and the percentages by year.
-     * @param answers The answers to be sorted.
-     * @return The sorted answers
+     * Calculates the percentage of answers by hobby.
+     * @return An array of doubles with a -1 indicating a change in hobby.
      */
-    public double[] sortByYear(double[] answers)
+    public double[] getPercentageByRegion()
     {
-        // Sorting moved to DoublyLinkedList
-        return null;
-    }
+        PeopleList neList = new PeopleList();
+        neList.setAnswerKey(answerKey);
+        PeopleList seList = new PeopleList();
+        seList.setAnswerKey(answerKey);
+        PeopleList usList = new PeopleList();
+        usList.setAnswerKey(answerKey);
+        PeopleList otherList = new PeopleList();
+        otherList.setAnswerKey(answerKey);
+        double[] returnArray = new double[this.getAnswerKey().size() * 8 + 3];
+        int returnIndex = 0;
+        for (int count = 0; count < this.getPopulation(); count++)
+        {
+            Person person = this.getPeople().get(count);
+            String region = person.getState();
+            if (region.equals(" Northeast"))
+            {
+                neList.addPerson(person);
+            }
+            else if (region.equals(" Southeast"))
+            {
+                seList.addPerson(person);
+            }
+            else if (region.equals(" United States (other than Southeast or Northwest)"))
+            {
+                usList.addPerson(person);
+            }
+            else if (region.equals(" Outside of United States"))
+            {
+                otherList.addPerson(person);
+            }
+        }
+        double[] neArray = neList.getPercentage();
+        for (int count = 0; count < neArray.length; count++)
+        {
+            returnArray[count] = neArray[count];
+        }
+        returnIndex = returnIndex + neArray.length;
+        returnArray[returnIndex] = -1;
+        returnIndex++;
+        double[] seArray = seList.getPercentage();
+        for (int count = 0; count < seArray.length; count++)
+        {
+            returnArray[count + returnIndex] = seArray[count];
 
-    /**
-     * Sorts the song key and the percentages by artist name.
-     * @param answers The answers to be sorted.
-     * @return The sorted answers
-     */
-    public double[] sortByArtistName(double[] answers)
-    {
-        // Sorting moved to DoublyLinkedList
-        return null;   
+        }
+        returnIndex = returnIndex + seArray.length;
+        returnArray[returnIndex] = -1;
+        returnIndex++;
+        double[] usArray = usList.getPercentage();
+        for (int count = 0; count < usArray.length; count++)
+        {
+            returnArray[count + returnIndex] = usArray[count];
+        }
+        returnIndex = returnIndex + usArray.length;
+        returnArray[returnIndex] = -1;
+        returnIndex++;
+        double[] otherArray = otherList.getPercentage();
+        for (int count = 0; count < otherArray.length; count++)
+        {
+            returnArray[count + returnIndex] = otherArray[count];
+        }
+        return returnArray;
     }
 }

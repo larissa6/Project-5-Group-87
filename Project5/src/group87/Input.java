@@ -37,6 +37,7 @@ public class Input
     {
         File aFile = new File(theFile);
         PeopleList group = new PeopleList();
+        group.setAnswerKey(readSongFile("SongList.csv").toList());
         Scanner scanner = new Scanner(aFile);
         scanner.nextLine();
         for (int i = 0; i < numOfLines(aFile) - 2; i++)
@@ -84,7 +85,7 @@ public class Input
         {
             answers.add(info[i]);
         }
-        Person thePerson = new Person(major, region, hobby, answers);
+        Person thePerson = new Person(hobby, major, region, answers);
         return thePerson;
     }
     

@@ -30,6 +30,8 @@ public class Graph
     private Shape orangeRight;
     private Shape greenRight;
     private Window window;
+    private int xCoordinate;
+    private int yCoordinate;
     
     /**
      * Creates a new graph
@@ -42,6 +44,8 @@ public class Graph
     public Graph(int x, int y, String song,
             String artist, Window window)
     {
+        xCoordinate = x;
+        yCoordinate = y;
         this.song = song;
         this.artist = artist;
         width = 50;
@@ -121,8 +125,8 @@ public class Graph
      */
     public void setPinkLeftWidth(int width)
     {
-        int x = pinkLeft.getX();
         int y = pinkLeft.getY();
+        int x = xCoordinate;
         Color color = pinkLeft.getForegroundColor();
         pinkLeft.remove();
         pinkLeft = new Shape(x + 50 - width, y, width, 5, color);
@@ -135,7 +139,7 @@ public class Graph
      */
     public void setBlueLeftWidth(int width)
     {
-        int x = blueLeft.getX();
+        int x = xCoordinate;
         int y = blueLeft.getY();
         Color color = blueLeft.getForegroundColor();
         blueLeft.remove();
@@ -149,7 +153,7 @@ public class Graph
      */
     public void setOrangeLeftWidth(int width)
     {
-        int x = orangeLeft.getX();
+        int x = xCoordinate;
         int y = orangeLeft.getY();
         Color color = orangeLeft.getForegroundColor();
         orangeLeft.remove();
@@ -163,7 +167,7 @@ public class Graph
      */
     public void setGreenLeftWidth(int width)
     {
-        int x = greenLeft.getX();
+        int x = xCoordinate;
         int y = greenLeft.getY();
         Color color = greenLeft.getForegroundColor();
         greenLeft.remove();

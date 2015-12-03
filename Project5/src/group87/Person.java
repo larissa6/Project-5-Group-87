@@ -40,6 +40,7 @@ public class Person
         this.answers = answers;
         this.hobby = hobby;
         this.major = major;
+        this.state = state;
     }
 
     /**

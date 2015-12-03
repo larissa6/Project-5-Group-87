@@ -37,6 +37,7 @@ public class GUIDisplayWindow
     private Graph graph7;
     private Graph graph8;
     private Graph graph9;
+    private DoublyLinkedList<Graph> graphs;
     private PeopleList myPeople;
     private SongList mySongs;
     private int peopleIndex;
@@ -46,6 +47,7 @@ public class GUIDisplayWindow
     private Legend legend;
     private Button previous;
     private Button next;
+    private double[] answers;
 
     //Constructor--------------------------------------------------------------
     /**
@@ -67,9 +69,10 @@ public class GUIDisplayWindow
         } catch (IOException e) {
             e.printStackTrace();
         }
+        answers = new double[myPeople.getPercentageByHobby().length];
         //Adds Buttons to the top of the window
         previous = new Button("<-- Prev");
-        previous.onClick(this, "clickedQuit");
+        previous.onClick(this, "clickedPrevious");
         window.addButton(previous, WindowSide.NORTH);
         Button artist = new Button("Sort by Artist Name");
         previous.disable();
@@ -120,6 +123,16 @@ public class GUIDisplayWindow
         window.moveToFront(coverShape);
         window.addShape(start);
         window.moveToFront(start);
+        graphs = new DoublyLinkedList<Graph>();
+        graphs.add(graph1);
+        graphs.add(graph2);
+        graphs.add(graph3);
+        graphs.add(graph4);
+        graphs.add(graph5);
+        graphs.add(graph6);
+        graphs.add(graph7);
+        graphs.add(graph8);
+        graphs.add(graph9);
     }
 
     //Methods -----------------------------------------------------------------
@@ -128,7 +141,13 @@ public class GUIDisplayWindow
      * @param button the previous button
      */
     public void clickedPrevious(Button button) {
-        //TODO go to the previous page
+        songIndex = songIndex - 9;
+        display();
+        if (songIndex <= 0)
+        {
+            previous.disable();
+            previous.repaint();
+        }
         //TODO disable if at the first page
     }
 
@@ -137,8 +156,14 @@ public class GUIDisplayWindow
      * @param button the next button
      */
     public void clickedNext(Button button) {
-        //TODO go to next page
-        //TODO disable if at the last page
+        previous.enable();
+        songIndex = songIndex + 9;
+        if (songIndex > mySongs.toList().size() - 9)
+        {
+            next.disable();
+        }
+        next.repaint();
+        display();
     }
 
     /**
@@ -146,7 +171,9 @@ public class GUIDisplayWindow
      * @param button the artist button
      */
     public void clickedArtist(Button button) {
-        //TODO sort by artist
+        mySongs.sort("Song Title");
+        songIndex = 0;
+        display();
     }
 
     /**
@@ -154,7 +181,9 @@ public class GUIDisplayWindow
      * @param button the song button
      */
     public void clickedSong(Button button) {
-        //TODO sort by song name
+        mySongs.sort("Artist Name");
+        songIndex = 0;
+        display();
     }
 
     /**
@@ -162,7 +191,9 @@ public class GUIDisplayWindow
      * @param button the year button
      */
     public void clickedYear(Button button) {
-        //TODO sort by year
+        mySongs.sort("Year");
+        songIndex = 0;
+        display();
     }
 
     /**
@@ -170,7 +201,9 @@ public class GUIDisplayWindow
      * @param button the genre button
      */
     public void clickedGenre(Button button) {
-        //TODO sort by genre
+        mySongs.sort("Genre");
+        songIndex = 0;
+        display();
     }
 
     /**
@@ -181,6 +214,11 @@ public class GUIDisplayWindow
         start.remove();
         coverShape.remove();
         legend.updateLegend("major");
+        next.enable();
+        songIndex = 0;
+        previous.disable();
+        answers = myPeople.getPercentageByMajor();
+        display();
     }
 
     /**
@@ -191,6 +229,11 @@ public class GUIDisplayWindow
         start.remove();
         coverShape.remove();
         legend.updateLegend("hobby");
+        next.enable();
+        songIndex = 0;
+        previous.disable();
+        answers = myPeople.getPercentageByHobby();
+        display();
     }
 
     /**
@@ -201,6 +244,11 @@ public class GUIDisplayWindow
         start.remove();
         coverShape.remove();
         legend.updateLegend("region");
+        next.enable();
+        songIndex = 0;
+        previous.disable();
+        answers = myPeople.getPercentageByRegion();
+        display();
     }
 
     /**
@@ -212,10 +260,59 @@ public class GUIDisplayWindow
         System.exit(0);
     }
 
-    /**
-     * updates the legend in the window
-     * @param representBy the aspect of students the data is sorted by
-     */
+    public void display()
+    {
+        int answersIndex = songIndex * 2;
+        if (mySongs.toList().size() - songIndex < 9)
+        {
+            for (int i = songIndex; i < mySongs.toList().size() - songIndex; i++)
+            {
+                graphs.get(i).setArtist(mySongs.toList().get(songIndex + i).getSongTitle());
+                graphs.get(i).setSong(mySongs.toList().get(songIndex + i).getArtistName());
+                graphs.get(i).setPinkLeftWidth((int) answers[answersIndex] / 2);
+                answersIndex++;
+                graphs.get(i).setPinkRightWidth((int) answers[answersIndex] / 2);
+                answersIndex++;
+                graphs.get(i).setBlueLeftWidth((int) answers[answersIndex] / 2);
+                answersIndex++;
+                graphs.get(i).setBlueRightWidth((int) answers[answersIndex] / 2);
+                answersIndex++;
+                graphs.get(i).setOrangeLeftWidth((int) answers[answersIndex] / 2);
+                answersIndex++;
+                graphs.get(i).setOrangeRightWidth((int) answers[answersIndex] / 2);
+                answersIndex++;
+                graphs.get(i).setGreenLeftWidth((int) answers[answersIndex] / 2);
+                answersIndex++;
+                graphs.get(i).setGreenRightWidth((int) answers[answersIndex] / 2);
+                answersIndex++;
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 9; i++)
+            {
+               // System.out.println(answers[answersIndex]);
+                graphs.get(i).setArtist(mySongs.toList().get(songIndex + i).getSongTitle());
+                graphs.get(i).setSong(mySongs.toList().get(songIndex + i).getArtistName());
+                graphs.get(i).setPinkLeftWidth((int) answers[answersIndex] / 2);
+                answersIndex++;
+                graphs.get(i).setPinkRightWidth((int) answers[answersIndex] / 2);
+                answersIndex++;
+                graphs.get(i).setBlueLeftWidth((int) answers[answersIndex] / 2);
+                answersIndex++;
+                graphs.get(i).setBlueRightWidth((int) answers[answersIndex] / 2);
+                answersIndex++;
+                graphs.get(i).setOrangeLeftWidth((int) answers[answersIndex] / 2);
+                answersIndex++;
+                graphs.get(i).setOrangeRightWidth((int) answers[answersIndex] / 2);
+                answersIndex++;
+                graphs.get(i).setGreenLeftWidth((int) answers[answersIndex] / 2);
+                answersIndex++;
+                graphs.get(i).setGreenRightWidth((int) answers[answersIndex] / 2);
+                answersIndex++;
+            }
+        }
+    }
 
 
     /**

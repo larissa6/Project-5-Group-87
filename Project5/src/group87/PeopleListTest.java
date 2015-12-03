@@ -50,21 +50,21 @@ public class PeopleListTest extends TestCase
         {
             answers3.add("No");
         }
-        Person tempPerson1 = new Person("sports", "Math/CMDA",
-                "Northeast", answers2);
+        Person tempPerson1 = new Person("sports", "Other Engineering",
+                "Northeast US", answers2);
         list.addPerson(tempPerson1);
-        list.addPerson(new Person("sports", "Math/CMDA",
-                "Northeast", answers1));
-        list.addPerson(new Person("sports", "Math/CMDA",
-                "Northeast", answers3));
+        list.addPerson(new Person("sports", "Math or CMDA",
+                "Northeast US", answers1));
+        list.addPerson(new Person("sports", "Math or CMDA",
+                "the rest of US", answers3));
         list.addPerson(new Person("music", "Other",
-                "non-US", answers3));
+                "outside the US", answers3));
         list.addPerson(new Person("music", "Other",
-                "non-US", answers2));
+                "outside the US", answers2));
         list.addPerson(new Person("art", "Computer Science",
-                "Southeast", answers2));
+                "Southeast US", answers2));
         list.addPerson(new Person("read", "Computer Science",
-                "Southeast", answers1));
+                "Southeast US", answers1));
         for (int count = 0; count < list.getPopulation(); count++)
         {
             people.add(list.getPeople().get(count));
@@ -139,40 +139,18 @@ public class PeopleListTest extends TestCase
     }
     
     /**
-     * Tests the sortBySongTitle method.
+     * Tests the getPercentageByMajor method.
      */
-    public void testSortBySongTitle()
+    public void testGetPercentageByMajor()
     {
-        double[] results = list.getPercentage();
-        assertNull(list.sortBySongTitle(results));
-    }
-    
-    /**
-     * Tests the sortByGenre method.
-     */
-    public void testSortByGenre()
-    {
-        double[] results = list.getPercentage();
-        assertNull(list.sortByGenre(results));
-    }
-    
-    /**
-     * Tests the sortByYear method.
-     */
-    public void testSortByYear()
-    {
-        double[] results = list.getPercentage();
-        assertNull(list.sortByYear(results));
-    }
-    
-    /**
-     * Tests the sortByArtistName method.
-     */
-    public void testSortByArtistName()
-    {
-        double[] results = list.getPercentage();
-        assertNull(list.sortByArtistName(results));
+        double[] results = list.getPercentageByMajor();
     }
 
-    
+    /**
+     * Tests the getPercentageByRegion method.
+     */
+    public void testGetPercentageByRegion()
+    {
+        double[] results = list.getPercentageByRegion();
+    }
 }
